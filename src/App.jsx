@@ -1,12 +1,11 @@
-import { useState } from "react";
+import Login from "./pages/Login";
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <>
-            <h1>Welcome to blog app</h1>
-        </>
+        <div>
+            <h1 className="flex justify-center	">Welcome to blog app</h1>
+            <Login />
+        </div>
     );
 }
 
