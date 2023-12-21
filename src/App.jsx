@@ -6,7 +6,7 @@ import HomePage from "./pages/Home";
 import { useEffect } from "react";
 
 function App() {
-    var token = useSelector((state) => state.auth.token);
+    const token = useSelector((state) => state.auth.token);
     useEffect(() => {
         console.log("token first", token);
     });
@@ -18,13 +18,7 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route
                     path="/home"
-                    element={
-                        isAuth ? (
-                            <HomePage />
-                        ) : (
-                            <Navigate to="/" replace={false} />
-                        )
-                    }
+                    element={isAuth ? <HomePage /> : <Navigate to="/" replace={false} />}
                 />
             </Routes>
         </BrowserRouter>

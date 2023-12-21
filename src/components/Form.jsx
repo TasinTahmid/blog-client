@@ -50,7 +50,7 @@ const Form = () => {
                 },
                 {
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/xml",
                     },
                 }
             );
@@ -97,7 +97,7 @@ const Form = () => {
                                 onChange={(e) => {
                                     setUsername(e.target.value);
                                 }}
-                                className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                             />
                         </div>
                     </div>
@@ -119,7 +119,7 @@ const Form = () => {
                             onChange={(e) => {
                                 setEmail(e.target.value);
                             }}
-                            className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 sm:text-sm sm:leading-6"
+                            className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
                     </div>
                 </div>
@@ -140,7 +140,7 @@ const Form = () => {
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
-                            className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-300 sm:text-sm sm:leading-6"
+                            className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
                     </div>
                 </div>
@@ -158,7 +158,7 @@ const Form = () => {
                 </button>
                 <button
                     type="submit"
-                    className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 active:bg-indigo-600"
+                    className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
                     onClick={handleSubmit}
                 >
                     {isRegisterPage ? "Register" : "Login"}
