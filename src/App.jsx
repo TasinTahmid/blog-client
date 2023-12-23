@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import LoginPage from "./pages/Login";
+import AuthPage from "./pages/Auth";
 import HomePage from "./pages/Home";
 import { useEffect } from "react";
 
@@ -15,11 +15,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route
-                    path="/home"
-                    element={isAuth ? <HomePage /> : <Navigate to="/" replace={false} />}
-                />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/auth" element={<AuthPage />} />
             </Routes>
         </BrowserRouter>
     );

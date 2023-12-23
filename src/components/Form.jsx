@@ -35,7 +35,7 @@ const Form = () => {
                     token: response.data.token,
                 })
             );
-            navigate("/home");
+            navigate("/");
         }
     };
 

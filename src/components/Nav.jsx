@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../states/authSlice";
 
 const Nav = () => {
-    // return <div className="h-20 bg-slate-50 shadow-md"></div>;
+    const navigate = useNavigate();
     const [isMenuActive, setIsMenuActive] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector((state) => state.auth.token);
@@ -20,7 +21,7 @@ const Nav = () => {
                 <div className="flex justify-between  gap-x-14 relative ml-3">
                     {!token ? (
                         <button
-                            type="submit"
+                            onClick={() => navigate("/auth")}
                             className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
                         >
                             Login
@@ -43,27 +44,31 @@ const Nav = () => {
                             />
                         </svg>
                     )}
-
-                    {isMenuActive && (
+                    {token && isMenuActive && (
                         <div className="absolute top-4 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 text-sm text-gray-700 "
+                                >
                                     Your Profile
                                 </a>
                             </div>
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 text-sm text-gray-700 "
+                                >
                                     Edit Profile
                                 </a>
                             </div>
-                            <div className="flex justify-start align-center active:bg-gray-50 hover:bg-gray-100">
-                                <button
-                                    type="submit"
-                                    className="rounded-md  px-4 py-2 text-sm font-semibold   "
-                                    onClick={() => {
-                                        dispatch(setLogout());
-                                    }}
-                                >
+                            <div
+                                onClick={() => {
+                                    dispatch(setLogout());
+                                }}
+                                className="flex justify-start align-center active:bg-gray-50 hover:bg-gray-100 hover:cursor-pointer"
+                            >
+                                <button className="rounded-md  px-4 py-2 text-sm font-semibold   ">
                                     Log out
                                 </button>
                                 <div className="pt-2 flex justify-start align-center">
