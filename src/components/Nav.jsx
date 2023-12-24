@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../states/authSlice";
 
@@ -14,8 +14,26 @@ const Nav = () => {
         <div className="flex justify-between items-center w-full bg-white shadow-md px-6 py-4  rounded-t-lg">
             <p>Blog App</p>
             <div className="flex justify-between gap-x-14">
-                <div>Home</div>
-                <div>Profile</div>
+                <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "underline underline-offset-2 font-semibold"
+                            : ""
+                    }
+                >
+                    Home
+                </NavLink>
+                <NavLink
+                    to="/profile"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "underline underline-offset-2 font-semibold"
+                            : ""
+                    }
+                >
+                    Profile
+                </NavLink>
             </div>
             <div className="flex justify-between gap-x-14">
                 <div className="flex justify-between  gap-x-14 relative ml-3">
