@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BlogCard from "./BlogCard";
 
-const BlogContainer = () => {
+const UserBlogContainer = () => {
     const dispatch = useDispatch();
-    const [blogList, setBlogList] = useState([]);
+    const [userBlogList, setUserBlogList] = useState([]);
+
+    const { id } = useSelector((state) => state.auth.user);
 
     useEffect(() => {
         const fetchBlogs = async () => {
             const response = await axios.get(
-                "http://localhost:5000/api/v1/blogs",
+                `http://localhost:5000/api/v1/users/${id}/blogs`,
                 {
                     headers: {
                         Accept: "application/json",
@@ -18,8 +20,8 @@ const BlogContainer = () => {
                 }
             );
             const blogs = response.data;
-            setBlogList(blogs);
-            console.log("blogs", blogs);
+            setUserBlogList(blogs);
+            console.log("blogs of user", blogs);
         };
         fetchBlogs();
     }, []);
@@ -29,11 +31,11 @@ const BlogContainer = () => {
             className="w-full  mt-2  bg-white shadow-lg py-6 px-12  rounded-b-lg
             grid grid-cols-2 gap-4"
         >
-            {blogList.map((blog, idx) => {
+            {userBlogList.map((blog, idx) => {
                 return <BlogCard blog={blog} key={blog.id} />;
             })}
         </div>
     );
 };
 
-export default BlogContainer;
+export default UserBlogContainer;

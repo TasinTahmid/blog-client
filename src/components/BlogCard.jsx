@@ -14,7 +14,7 @@ const BlogCard = ({ blog }) => {
         navigate(`blogs/${id}`);
     };
     return (
-        <div className="border-2 rounded-lg relative p-8">
+        <div className=" rounded-lg relative p-8">
             <h2 className="text-6xl mb-8 font-semibold">{blog.title}</h2>
             <p className="my-6">{time}</p>
 
