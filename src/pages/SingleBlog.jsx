@@ -28,15 +28,15 @@ const SingleBlog = () => {
         fetchBlog();
     }, []);
     return (
-        <>
+        <div className=" h-full">
             <Nav />
-            <div className="w-full bg-white rounded-b-lg mt-2 shadow-lg p-8 ">
+            <div className="h-full w-full overflow-hidden hover:overflow-auto bg-white rounded-b-lg mt-2 shadow-lg p-8 ">
                 <h2 className="text-6xl mb-8 font-semibold">{blog.title}</h2>
                 <p className="my-6">{time}</p>
 
                 <p className="my-6 inline">{blog.blogContent}</p>
             </div>
-        </>
+        </div>
     );
 };
 

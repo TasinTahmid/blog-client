@@ -1,15 +1,15 @@
 import Form from "../components/Form";
 import Nav from "../components/Nav";
 
-const Login = () => {
+const Auth = () => {
     return (
-        <>
+        <div className="flex flex-col h-screen">
             <Nav />
-            <div className="flex justify-center">
+            <div className="flex-1">
                 <Form />
             </div>
-        </>
+        </div>
     );
 };
 
-export default Login;
+export default Auth;

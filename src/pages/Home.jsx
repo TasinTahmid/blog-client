@@ -3,7 +3,7 @@ import Nav from "../components/Nav";
 
 const Home = () => {
     return (
-        <div>
+        <div className="h-full">
             <Nav />
             <BlogContainer />
         </div>

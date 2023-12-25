@@ -26,7 +26,7 @@ const BlogContainer = () => {
 
     return (
         <div
-            className="w-full mt-2  bg-white shadow-lg p-5 w-3/4 rounded-b-lg
+            className="w-full  mt-2  bg-white shadow-lg p-5 w-3/4 rounded-b-lg
             grid grid-cols-2 gap-4"
         >
             {blogList.map((blog, idx) => {
