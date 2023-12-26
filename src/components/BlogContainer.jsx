@@ -9,14 +9,11 @@ const BlogContainer = () => {
 
     useEffect(() => {
         const fetchBlogs = async () => {
-            const response = await axios.get(
-                "http://localhost:5000/api/v1/blogs",
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
+            const response = await axios.get("http://localhost:5000/api/v1/blogs", {
+                headers: {
+                    Accept: "application/json",
+                },
+            });
             const blogs = response.data;
             setBlogList(blogs);
             console.log("blogs", blogs);
@@ -26,10 +23,10 @@ const BlogContainer = () => {
 
     return (
         <div
-            className="w-full  mt-2  bg-white shadow-lg py-6 px-12  rounded-b-lg
+            className="w-full h-full bg-white  py-6 px-12  
             grid grid-cols-2 gap-4"
         >
-            {blogList.map((blog, idx) => {
+            {blogList.map((blog) => {
                 return <BlogCard blog={blog} key={blog.id} />;
             })}
         </div>

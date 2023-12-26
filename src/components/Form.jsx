@@ -74,7 +74,7 @@ const Form = () => {
         return await login();
     };
     return (
-        <div className="w-full h-full flex justify-center bg-white rounded-b-lg mt-2 shadow-lg pt-12 ">
+        <div className="w-full flex justify-center bg-white  p-14 ">
             <form className="mt-2 w-2/5 ">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">

@@ -8,36 +8,40 @@ const Nav = () => {
     const navigate = useNavigate();
     const [isMenuActive, setIsMenuActive] = useState(false);
     const dispatch = useDispatch();
-    const token = useSelector((state) => state.auth.token);
+    const user = useSelector((state) => state.auth.user);
+
+    const handleLogOut = () => {
+        setIsMenuActive(false);
+        dispatch(setLogout());
+    };
 
     return (
-        <div className="flex justify-between items-center w-full bg-white shadow-md px-6 py-4  rounded-t-lg">
+        <div className="sticky top-0 text-xl z-2 flex justify-between items-center w-full bg-white border-b shadow-inner p-6  rounded-t-lg">
             <p>Blog App</p>
             <div className="flex justify-between gap-x-14">
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        isActive
-                            ? "underline underline-offset-2 font-semibold"
-                            : ""
+                        isActive ? "underline underline-offset-2 font-semibold" : ""
                     }
                 >
                     Home
                 </NavLink>
-                <NavLink
-                    to="/profile"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "underline underline-offset-2 font-semibold"
-                            : ""
-                    }
-                >
-                    Profile
-                </NavLink>
+                {user && (
+                    <NavLink
+                        to="/profile"
+                        state={{ id: user.id }}
+                        className={({ isActive }) =>
+                            isActive ? "underline underline-offset-2 font-semibold" : ""
+                        }
+                    >
+                        Profile
+                    </NavLink>
+                )}
             </div>
             <div className="flex justify-between gap-x-14">
                 <div className="flex justify-between  gap-x-14 relative ml-3">
-                    {!token ? (
+                    {!user ? (
                         <button
                             onClick={() => navigate("/auth")}
                             className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
@@ -62,28 +66,20 @@ const Nav = () => {
                             />
                         </svg>
                     )}
-                    {token && isMenuActive && (
+                    {user && isMenuActive && (
                         <div className="absolute top-4 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700 "
-                                >
+                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
                                     Your Profile
                                 </a>
                             </div>
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700 "
-                                >
+                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
                                     Edit Profile
                                 </a>
                             </div>
                             <div
-                                onClick={() => {
-                                    dispatch(setLogout());
-                                }}
+                                onClick={handleLogOut}
                                 className="flex justify-start align-center active:bg-gray-50 hover:bg-gray-100 hover:cursor-pointer"
                             >
                                 <button className="rounded-md  px-4 py-2 text-sm font-semibold   ">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,10 +12,10 @@ const BlogCard = ({ blog }) => {
             : blog.blogContent;
 
     const showSingleBlog = (id) => {
-        navigate(`blogs/${id}`);
+        navigate(`/blogs/${id}`);
     };
     return (
-        <div className=" rounded-lg relative p-8">
+        <div className=" rounded-lg  p-8">
             <h2 className="text-6xl mb-8 font-semibold">{blog.title}</h2>
             <p className="my-6">{time}</p>
 

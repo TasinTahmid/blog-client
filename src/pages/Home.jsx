@@ -1,10 +1,8 @@
 import BlogContainer from "../components/BlogContainer";
-import Nav from "../components/Nav";
 
 const Home = () => {
     return (
-        <div className="h-full">
-            <Nav />
+        <div className="auto">
             <BlogContainer />
         </div>
     );
