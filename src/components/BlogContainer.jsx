@@ -9,11 +9,14 @@ const BlogContainer = () => {
 
     useEffect(() => {
         const fetchBlogs = async () => {
-            const response = await axios.get("http://localhost:5000/api/v1/blogs", {
-                headers: {
-                    Accept: "application/json",
-                },
-            });
+            const response = await axios.get(
+                "http://localhost:5000/api/v1/blogs",
+                {
+                    headers: {
+                        Accept: "application/json",
+                    },
+                }
+            );
             const blogs = response.data;
             setBlogList(blogs);
             console.log("blogs", blogs);
@@ -23,7 +26,7 @@ const BlogContainer = () => {
 
     return (
         <div
-            className="w-full h-full bg-white  py-6 px-12  
+            className="relative overflow-hidden w-full h-full bg-white  py-6 px-12  
             grid grid-cols-2 gap-4"
         >
             {blogList.map((blog) => {

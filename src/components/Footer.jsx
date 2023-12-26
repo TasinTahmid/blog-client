@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-y rounded-b-lg shadow-2xl mx-auto w-full max-w-screen-xl pt-10 px-8  pb-2">
+        <footer className="bg-white border-y rounded-b-lg shadow-2xl  w-full pt-10 px-8  pb-2">
             <div className="md:flex md:justify-between">
                 <div className="mb-4 md:mb-0 grid  gap-y-6">
                     <Link to="/" className="flex items-center">
@@ -10,7 +10,10 @@ export default function Footer() {
                     </Link>
                     <span className=" text-sm text-gray-500 sm:text-center">
                         © 2023
-                        <a href="https://hiteshchoudhary.com/" className="hover:underline">
+                        <a
+                            href="https://hiteshchoudhary.com/"
+                            className="hover:underline"
+                        >
                             hiteshchoudhary
                         </a>
                         . All Rights Reserved.
