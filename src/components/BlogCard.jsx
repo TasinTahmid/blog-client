@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
+    const location = useLocation();
+    const currentUrl = location.pathname;
+
     const navigate = useNavigate();
 
     const time = blog.createdAt.split("T")[0];
@@ -17,7 +20,19 @@ const BlogCard = ({ blog }) => {
     return (
         <div className=" rounded-lg  p-8">
             <h2 className="text-6xl mb-8 font-semibold">{blog.title}</h2>
-            <p className="my-6">{time}</p>
+            <div className="flex justify-between items-center">
+                <p className="my-6">{time}</p>
+                {currentUrl === "/profile" && (
+                    <button
+                        className=" rounded-md px-3 h-8 text-sm font-semibold  text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                        onClick={() => {
+                            navigate("/update-blog", { state: { blog } });
+                        }}
+                    >
+                        Update blog
+                    </button>
+                )}
+            </div>
 
             <p className="my-6 inline">{text}</p>
             <button

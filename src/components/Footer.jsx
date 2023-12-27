@@ -9,14 +9,7 @@ export default function Footer() {
                         <p className="mr-3 text-4xl">Blog App</p>
                     </Link>
                     <span className=" text-sm text-gray-500 sm:text-center">
-                        © 2023
-                        <a
-                            href="https://hiteshchoudhary.com/"
-                            className="hover:underline"
-                        >
-                            hiteshchoudhary
-                        </a>
-                        . All Rights Reserved.
+                        © 2023 tasintahmid. All Rights Reserved.
                     </span>
                 </div>
                 <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

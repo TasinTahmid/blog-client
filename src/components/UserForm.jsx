@@ -150,7 +150,7 @@ const Form = () => {
                 <div className="mt-6 flex items-center justify-between gap-x-6">
                     <button
                         type="button"
-                        className="rounded-md px-4 py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
+                        className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
                         onClick={() => setIsRegisterPage(!isRegisterPage)}
                     >
                         {isRegisterPage
@@ -159,7 +159,7 @@ const Form = () => {
                     </button>
                     <button
                         type="submit"
-                        className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
+                        className="mr-6 rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
                         onClick={handleSubmit}
                     >
                         {isRegisterPage ? "Register" : "Login"}

@@ -6,17 +6,14 @@ import BlogCard from "./BlogCard";
 const BlogContainer = () => {
     const dispatch = useDispatch();
     const [blogList, setBlogList] = useState([]);
-
+    console.log("render blog container.");
     useEffect(() => {
         const fetchBlogs = async () => {
-            const response = await axios.get(
-                "http://localhost:5000/api/v1/blogs",
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
+            const response = await axios.get("http://localhost:5000/api/v1/blogs", {
+                headers: {
+                    Accept: "application/json",
+                },
+            });
             const blogs = response.data;
             setBlogList(blogs);
             console.log("blogs", blogs);

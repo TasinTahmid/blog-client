@@ -13,6 +13,7 @@ const Nav = () => {
     const handleLogOut = () => {
         setIsMenuActive(false);
         dispatch(setLogout());
+        navigate("/");
     };
 
     return (
@@ -22,25 +23,31 @@ const Nav = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        isActive
-                            ? "underline underline-offset-2 font-semibold"
-                            : ""
+                        isActive ? "underline underline-offset-2 font-semibold" : ""
                     }
                 >
                     Home
                 </NavLink>
                 {user && (
-                    <NavLink
-                        to="/profile"
-                        state={{ id: user.id }}
-                        className={({ isActive }) =>
-                            isActive
-                                ? "underline underline-offset-2 font-semibold"
-                                : ""
-                        }
-                    >
-                        Profile
-                    </NavLink>
+                    <>
+                        <NavLink
+                            to="/profile"
+                            state={{ id: user.id }}
+                            className={({ isActive }) =>
+                                isActive ? "underline underline-offset-2 font-semibold" : ""
+                            }
+                        >
+                            Profile
+                        </NavLink>
+                        <NavLink
+                            to="/create-blog"
+                            className={({ isActive }) =>
+                                isActive ? "underline underline-offset-2 font-semibold" : ""
+                            }
+                        >
+                            Create Blog
+                        </NavLink>
+                    </>
                 )}
             </div>
             <div className="flex justify-between gap-x-14">
@@ -73,18 +80,12 @@ const Nav = () => {
                     {user && isMenuActive && (
                         <div className="absolute top-4 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700 "
-                                >
+                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
                                     Your Profile
                                 </a>
                             </div>
                             <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 text-sm text-gray-700 "
-                                >
+                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
                                     Edit Profile
                                 </a>
                             </div>
