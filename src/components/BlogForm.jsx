@@ -33,7 +33,6 @@ const BlogForm = ({ isCreateBlog, blog }) => {
         }
     };
     const updateBlog = async () => {
-        console.log("in     firstttttt", title, blogContent);
         try {
             const response = await axios.put(
                 `http://localhost:5000/api/v1/blogs/${blog.id}`,

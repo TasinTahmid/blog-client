@@ -24,7 +24,7 @@ const UserBlogContainer = ({ id }) => {
     }, []);
 
     return (
-        <div className="w-full bg-white shadow-2xl py-6 px-12 grid grid-cols-2 gap-4">
+        <div className="w-full bg-white shadow-2xl py-6 px-12 grid grid-cols-2 gap-10 shadow-2xl">
             {userBlogList.map((blog) => {
                 return <BlogCard blog={blog} key={blog.id} />;
             })}

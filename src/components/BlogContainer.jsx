@@ -24,7 +24,7 @@ const BlogContainer = () => {
     return (
         <div
             className="relative overflow-hidden w-full h-full bg-white  py-6 px-12  
-            grid grid-cols-2 gap-4"
+            grid grid-cols-2 gap-10 shadow-2xl"
         >
             {blogList.map((blog) => {
                 return <BlogCard blog={blog} key={blog.id} />;
