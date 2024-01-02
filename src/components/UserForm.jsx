@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setLogin } from "../states/authSlice";
+import { setPageTypeLogin, setPageTypeRegister } from "../states/pageTypeSlice";
 
 const Form = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [isRegisterPage, setIsRegisterPage] = useState(false);
+    const { pageType } = useSelector((state) => state.pageType);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,7 +28,6 @@ const Form = () => {
             }
         );
 
-        console.log("from login", response.data);
         if (response.data.token) {
             dispatch(
                 setLogin({
@@ -54,7 +54,6 @@ const Form = () => {
                     },
                 }
             );
-            console.log(response.data);
             if (response.token) {
                 dispatch(
                     setLogin({
@@ -70,17 +69,17 @@ const Form = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (isRegisterPage) return await register();
+        if (pageType == "register") return await register();
         return await login();
     };
     return (
-        <div className="w-full flex justify-center bg-white  p-14 ">
-            <form className="mt-2 w-2/5 ">
+        <div className="w-full flex justify-center bg-gray-50 ">
+            <form className=" w-2/5 my-12  bg-white shadow-2xl p-14">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">
-                        {isRegisterPage ? "Register" : "Login"}
+                        {pageType == "register" ? "Register" : "Login"}
                     </h2>
-                    {isRegisterPage && (
+                    {pageType == "register" && (
                         <div className="mt-7 w-2/3">
                             <label
                                 htmlFor="username"
@@ -151,9 +150,13 @@ const Form = () => {
                     <button
                         type="button"
                         className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
-                        onClick={() => setIsRegisterPage(!isRegisterPage)}
+                        onClick={() =>
+                            dispatch(
+                                pageType == "register" ? setPageTypeLogin() : setPageTypeRegister()
+                            )
+                        }
                     >
-                        {isRegisterPage
+                        {pageType == "register"
                             ? "Already have an account? Login here."
                             : "Don't have an account? Register here."}
                     </button>
@@ -162,7 +165,7 @@ const Form = () => {
                         className="mr-6 rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
                         onClick={handleSubmit}
                     >
-                        {isRegisterPage ? "Register" : "Login"}
+                        {pageType == "register" ? "Register" : "Login"}
                     </button>
                 </div>
             </form>

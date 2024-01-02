@@ -61,14 +61,14 @@ const BlogForm = ({ isCreateBlog, blog }) => {
         return await updateBlog();
     };
     return (
-        <div className="w-full flex justify-center bg-white  p-14 ">
-            <form className="mt-2 w-2/5 ">
+        <div className="bg-white w-full flex justify-center  ">
+            <form className="my-16 w-2/5 bg-white shadow-2xl p-14">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">
                         {isCreateBlog ? "Create New Blogs" : "Update Your Blog"}
                     </h2>
 
-                    <div className="mt-7 w-2/3">
+                    <div className="mt-7 w-full">
                         <label
                             htmlFor="title"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -90,7 +90,7 @@ const BlogForm = ({ isCreateBlog, blog }) => {
                         </div>
                     </div>
 
-                    <div className="mt-7 w-2/3">
+                    <div className="mt-7 w-full">
                         <label
                             htmlFor="blogContent"
                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -107,7 +107,9 @@ const BlogForm = ({ isCreateBlog, blog }) => {
                                 onChange={(e) => {
                                     setBlogContent(e.target.value);
                                 }}
-                                className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+                                className={` ${
+                                    isCreateBlog ? "" : "h-64"
+                                } block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6`}
                             />
                         </div>
                     </div>

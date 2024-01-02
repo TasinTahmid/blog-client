@@ -3,12 +3,15 @@ import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../states/authSlice";
+import { setPageTypeLogin, setPageTypeRegister } from "../states/pageTypeSlice";
 
 const Nav = () => {
     const navigate = useNavigate();
     const [isMenuActive, setIsMenuActive] = useState(false);
+
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
+    console.log("from nav bar user is:", user);
 
     const handleLogOut = () => {
         setIsMenuActive(false);
@@ -16,9 +19,20 @@ const Nav = () => {
         navigate("/");
     };
 
+    const handleLogin = () => {
+        navigate("/auth");
+        dispatch(setPageTypeLogin());
+    };
+    const handleRegister = () => {
+        navigate("/auth");
+        dispatch(setPageTypeRegister());
+    };
+
     return (
         <div className="sticky mt-5 top-0 text-xl z-20 flex justify-between items-center w-full bg-white border-b shadow-inner p-6  rounded-t-lg">
-            <p>Blog App</p>
+            <NavLink to="/" className="text-4xl">
+                Blog App
+            </NavLink>
             <div className="flex justify-between gap-x-14">
                 <NavLink
                     to="/"
@@ -53,42 +67,52 @@ const Nav = () => {
             <div className="flex justify-between gap-x-14">
                 <div className="flex justify-between  gap-x-14 relative ml-3">
                     {!user ? (
-                        <button
-                            onClick={() => navigate("/auth")}
-                            className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
-                        >
-                            Login
-                        </button>
+                        <div className="grid grid-cols-2 gap-2">
+                            <button
+                                onClick={handleLogin}
+                                className="rounded-md  px-4 py-2 text-sm font-semibold  hover:bg-gray-50 active:bg-gray-100"
+                            >
+                                Login
+                            </button>
+                            <button
+                                onClick={handleRegister}
+                                className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
+                            >
+                                Register
+                            </button>
+                        </div>
                     ) : (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
                             viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            dataSlot="icon"
+                            fill="currentColor"
                             onClick={() => setIsMenuActive(!isMenuActive)}
-                            className="w-6 h-6 hover:cursor-pointer"
+                            class="w-10 h-10 hover:cursor-pointer"
                         >
                             <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                fill-rule="evenodd"
+                                d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                                clip-rule="evenodd"
                             />
                         </svg>
                     )}
                     {user && isMenuActive && (
-                        <div className="absolute top-4 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
-                            <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
-                                    Your Profile
-                                </a>
-                            </div>
-                            <div className="active:bg-gray-50 hover:bg-gray-100">
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700 ">
-                                    Edit Profile
-                                </a>
-                            </div>
+                        <div className="absolute top-8 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
+                            <NavLink
+                                to="/profile"
+                                state={{ id: user.id }}
+                                className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
+                            >
+                                {user.username}
+                            </NavLink>
+                            <NavLink
+                                to="/profile"
+                                state={{ id: user.id }}
+                                className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
+                            >
+                                Edit Profile
+                            </NavLink>
+
                             <div
                                 onClick={handleLogOut}
                                 className="flex justify-start align-center active:bg-gray-50 hover:bg-gray-100 hover:cursor-pointer"

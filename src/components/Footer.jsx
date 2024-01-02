@@ -2,12 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-y rounded-b-lg shadow-2xl  w-full pt-10 px-8  pb-2">
+        <footer className=" bg-white border-y rounded-b-lg shadow-2xl w-full mb-4 pt-10 px-8 pb-4">
             <div className="md:flex md:justify-between">
-                <div className="mb-4 md:mb-0 grid  gap-y-6">
-                    <Link to="/" className="flex items-center">
-                        <p className="mr-3 text-4xl">Blog App</p>
-                    </Link>
+                <div className="mb-4 md:mb-0 flex flex-col justify-end">
                     <span className=" text-sm text-gray-500 sm:text-center">
                         © 2023 tasintahmid. All Rights Reserved.
                     </span>
@@ -62,7 +59,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <hr className="mt-4 border-gray-200 sm:mx-auto lg:my-8" />
+            <hr className="my-4 border-gray-200 " />
         </footer>
     );
 }

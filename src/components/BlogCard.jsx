@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
     const text =
         blog.blogContent.length > 150
             ? blog.blogContent.substring(0, 150).concat("...")
-            : blog.blogContent;
+            : blog.blogContent.concat("...");
 
     const showSingleBlog = (id) => {
         navigate(`/blogs/${id}`);
@@ -37,8 +37,8 @@ const BlogCard = ({ blog }) => {
         }
     };
     return (
-        <div className="bg-gray-100 rounded-2xl py-8 px-16">
-            <h2 className="text-6xl mb-8 font-semibold">{blog.title}</h2>
+        <div className="bg-white shadow-2xl w-full py-10 px-14">
+            <h2 className="text-5xl mb-8 font-semibold">{blog.title}</h2>
             <div className="flex justify-between items-center">
                 <p className="my-6">{time}</p>
                 {currentUrl === "/profile" && (
