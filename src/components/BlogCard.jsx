@@ -37,7 +37,7 @@ const BlogCard = ({ blog }) => {
         }
     };
     return (
-        <div className="bg-white shadow-2xl w-full py-10 px-14">
+        <div className="bg-white shadow-xl shadow-inner w-full py-10 px-14">
             <h2 className="text-5xl mb-8 font-semibold">{blog.title}</h2>
             <div className="flex justify-between items-center">
                 <p className="my-6">{time}</p>

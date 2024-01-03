@@ -23,7 +23,7 @@ const BlogContainer = () => {
 
     return (
         <div
-            className="bg-gray-50 relative overflow-hidden w-full h-full bg-white  py-10 px-auto  
+            className="bg-gray-100 relative overflow-hidden w-full h-full bg-white  py-10 px-auto  
             flex justify-center"
         >
             <div className="w-2/3 grid grid-cols-2 gap-y-12 gap-x-14 justify-items-center">
