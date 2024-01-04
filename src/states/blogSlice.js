@@ -5,20 +5,27 @@ const initialState = {
     userBlogList: [],
 };
 
-export const authSlice = createSlice({
-    name: "blog",
+export const blogSlice = createSlice({
+    name: "blogListTypes",
     initialState,
     reducers: {
-        setLogin: (state, action) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
+        setBlogs: (state, action) => {
+            state.blogList = action.payload;
         },
-        setLogout: (state) => {
-            state.user = null;
-            state.token = null;
+        setUserBlogs: (state, action) => {
+            state.userBlogList = action.payload;
+        },
+        updateBlog: (state, action) => {
+            state.blogList = action.payload.blogList;
+            state.userBlogList = action.payload.userBlogList;
+        },
+        deleteBlogById: (state, action) => {
+            console.log("entered in delet blog,", action.payload);
+            state.blogList = state.blogList.filter((blog) => action.payload != blog.id);
+            state.userBlogList = state.userBlogList.filter((blog) => action.payload != blog.id);
         },
     },
 });
 
-export const { setLogin, setLogout } = authSlice.actions;
-export default authSlice.reducer;
+export const { setBlogs, setUserBlogs, updateBlog, deleteBlogById } = blogSlice.actions;
+export default blogSlice.reducer;

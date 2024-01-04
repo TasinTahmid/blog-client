@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteBlogById } from "../states/blogSlice";
 
 const BlogCard = ({ blog }) => {
+    const dispatch = useDispatch();
+
     const location = useLocation();
     const currentUrl = location.pathname;
 
@@ -31,13 +33,14 @@ const BlogCard = ({ blog }) => {
                 },
             });
             console.log(response.data);
+            dispatch(deleteBlogById(response.data.id));
             navigate("/profile", { state: { id: user.id } });
         } catch (error) {
             console.log("error...", error.response);
         }
     };
     return (
-        <div className="bg-white shadow-xl shadow-inner w-full py-10 px-14">
+        <div className="bg-white shadow-xl deleteBlogById w-full py-10 px-14">
             <h2 className="text-5xl mb-8 font-semibold">{blog.title}</h2>
             <div className="flex justify-between items-center">
                 <p className="my-6">{time}</p>
