@@ -62,7 +62,7 @@ const BlogForm = ({ isCreateBlog, blog }) => {
         return await updateBlog();
     };
     return (
-        <div className="bg-white w-full flex justify-center  ">
+        <div className="bg-gray-50 w-full flex justify-center  ">
             <form className="my-16 w-2/5 bg-white shadow-2xl p-14">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">

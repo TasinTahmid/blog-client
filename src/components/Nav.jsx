@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../states/authSlice";
@@ -28,8 +28,25 @@ const Nav = () => {
         dispatch(setPageTypeRegister());
     };
 
+    const closeUserOptions = () => {
+        setIsMenuActive(false);
+    };
+    const handleKeyDown = (e) => {
+        if (e.key === "Escape") {
+            closeUserOptions();
+        }
+    };
+    useEffect(() => {
+        document.addEventListener("click", closeUserOptions);
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("click", closeUserOptions);
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
     return (
-        <div className="sticky mt-5 top-0 text-xl z-20 flex justify-between items-center w-full bg-white border-b shadow-inner p-6  rounded-t-lg">
+        <div className="sticky mt-5 top-0 text-xl text-gray-600 z-20 flex justify-between items-center w-full bg-white border-b shadow-inner p-6  rounded-t-lg">
             <NavLink to="/" className="text-4xl">
                 Blog App
             </NavLink>
@@ -86,7 +103,10 @@ const Nav = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            onClick={() => setIsMenuActive(!isMenuActive)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsMenuActive(!isMenuActive);
+                            }}
                             class="w-10 h-10 hover:cursor-pointer"
                         >
                             <path

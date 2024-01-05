@@ -54,13 +54,14 @@ const Form = () => {
                     },
                 }
             );
-            if (response.token) {
+            if (response.data.token) {
                 dispatch(
                     setLogin({
-                        user: response.user,
-                        token: response.token,
+                        user: response.data.user,
+                        token: response.data.token,
                     })
                 );
+                navigate("/");
             }
         } catch (error) {
             console.log("error...", error.response);
