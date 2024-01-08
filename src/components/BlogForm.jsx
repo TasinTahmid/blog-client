@@ -2,15 +2,25 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addNewBlog, updateBlogById } from "../states/blogSlice";
 
-const BlogForm = ({ isCreateBlog, blog }) => {
+const BlogForm = ({
+    isCreateBlog,
+    blog,
+    handleClick,
+    toggleEditBlog,
+    toggleProfileDetails,
+    isUserBlogList,
+    singleBlog,
+}) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { user, token } = useSelector((state) => state.auth);
 
-    const [title, setTitle] = useState(blog.title);
-    const [blogContent, setBlogContent] = useState(blog.blogContent);
+    const [title, setTitle] = useState(blog?.title);
+    const [blogContent, setBlogContent] = useState(blog?.blogContent);
 
     const createBlog = async () => {
         try {
@@ -28,7 +38,8 @@ const BlogForm = ({ isCreateBlog, blog }) => {
                 }
             );
             console.log(response.data);
-            navigate("/profile", { state: { id: user.id } });
+            dispatch(addNewBlog(response.data));
+            handleClick();
         } catch (error) {
             console.log("error...", error.response);
         }
@@ -49,7 +60,8 @@ const BlogForm = ({ isCreateBlog, blog }) => {
                 }
             );
             console.log(response.data);
-            navigate("/profile", { state: { id: user.id } });
+            dispatch(updateBlogById(response.data));
+            toggleEditBlog(null);
         } catch (error) {
             console.log("error...", error.response);
         }
@@ -61,9 +73,24 @@ const BlogForm = ({ isCreateBlog, blog }) => {
         if (isCreateBlog) return await createBlog();
         return await updateBlog();
     };
+
+    const handleCancel = () => {
+        if (!singleBlog && isUserBlogList) {
+            console.log("check", !singleBlog && !isUserBlogList);
+            toggleProfileDetails();
+        }
+
+        if (isCreateBlog) {
+            handleClick();
+            return;
+        }
+
+        toggleEditBlog(null);
+        return;
+    };
     return (
-        <div className="bg-gray-50 w-full flex justify-center  ">
-            <form className="my-16 w-2/5 bg-white shadow-2xl p-14">
+        <div className=" bg-gray-50 w-full flex justify-center ">
+            <form className="rounded-sm my-16 w-1/2 bg-white shadow-2xl p-14">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">
                         {isCreateBlog ? "Create New Blogs" : "Update Your Blog"}
@@ -116,7 +143,14 @@ const BlogForm = ({ isCreateBlog, blog }) => {
                     </div>
                 </div>
 
-                <div className="mt-6 mr-6 flex items-center justify-end gap-x-6">
+                <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <button
+                        type="button"
+                        class="rounded-md text-sm font-semibold px-4 py-2 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                        onClick={handleCancel}
+                    >
+                        Cancel
+                    </button>
                     <button
                         type="submit"
                         className="rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"

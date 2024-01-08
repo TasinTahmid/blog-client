@@ -54,7 +54,9 @@ const Nav = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        isActive ? "underline underline-offset-2 font-semibold" : ""
+                        isActive
+                            ? "underline underline-offset-2 font-semibold"
+                            : ""
                     }
                 >
                     Home
@@ -65,18 +67,12 @@ const Nav = () => {
                             to="/profile"
                             state={{ id: user.id }}
                             className={({ isActive }) =>
-                                isActive ? "underline underline-offset-2 font-semibold" : ""
+                                isActive
+                                    ? "underline underline-offset-2 font-semibold"
+                                    : ""
                             }
                         >
                             Profile
-                        </NavLink>
-                        <NavLink
-                            to="/create-blog"
-                            className={({ isActive }) =>
-                                isActive ? "underline underline-offset-2 font-semibold" : ""
-                            }
-                        >
-                            Create Blog
                         </NavLink>
                     </>
                 )}

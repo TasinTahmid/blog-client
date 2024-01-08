@@ -75,7 +75,7 @@ const Form = () => {
     };
     return (
         <div className="w-full flex justify-center bg-gray-50 ">
-            <form className=" w-2/5 my-12  bg-white shadow-2xl p-14">
+            <form className="rounded-md w-2/5 my-12  bg-white shadow-2xl p-14">
                 <div className="space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">
                         {pageType == "register" ? "Register" : "Login"}
@@ -153,7 +153,9 @@ const Form = () => {
                         className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
                         onClick={() =>
                             dispatch(
-                                pageType == "register" ? setPageTypeLogin() : setPageTypeRegister()
+                                pageType == "register"
+                                    ? setPageTypeLogin()
+                                    : setPageTypeRegister()
                             )
                         }
                     >

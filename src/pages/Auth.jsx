@@ -1,10 +1,10 @@
-import Form from "../components/UserForm";
+import UserForm from "../components/UserForm";
 
 const Auth = () => {
     return (
         <div className="flex flex-col ">
             <div className="flex-1">
-                <Form />
+                <UserForm />
             </div>
         </div>
     );
