@@ -1,7 +1,7 @@
 import axios from "axios";
 import BlogContainer from "../components/BlogContainer";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setBlogs } from "../states/blogSlice";
 import DotLoader from "react-spinners/DotLoader";
 import CreateBlogInputButton from "../components/CreateBlogInputButton";
@@ -9,12 +9,15 @@ import CreateBlogInputButton from "../components/CreateBlogInputButton";
 const Home = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+    const [pageSize, setPageSize] = useState(4);
+    const pageNumber = useSelector((state) => state.blog.pageNumber);
+    console.log("page in home ,", pageNumber);
 
     useEffect(() => {
         setLoading(true);
         const fetchBlogs = async () => {
             const response = await axios.get(
-                "http://localhost:5000/api/v1/blogs",
+                `http://localhost:5000/api/v1/blogs?page=${pageNumber}&size=${pageSize}`,
                 {
                     headers: {
                         Accept: "application/json",
@@ -27,7 +30,8 @@ const Home = () => {
             }, 600);
         };
         fetchBlogs();
-    }, []);
+    }, [pageNumber]);
+
     return (
         <div className="bg-gray-50 h-5/6 overflow-auto">
             {loading ? (

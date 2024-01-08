@@ -5,6 +5,7 @@ import BlogCard from "./BlogCard";
 import CreateBlogInputButton from "./CreateBlogInputButton";
 import BlogForm from "./BlogForm";
 import SingleBlog from "./SingleBlog";
+import Paginate from "./Pagination";
 
 const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
     const [singleBlog, setSingleBlog] = useState(null);
@@ -12,9 +13,8 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
     const [blogToEdit, setBlogToEdit] = useState(null);
 
     const blogs = useSelector((state) =>
-        isUserBlogList ? state.blogTypes.userBlogList : state.blogTypes.blogList
+        isUserBlogList ? state.blog.userBlogList : state.blog.blogList
     );
-    console.log("render blog Liist.,", blogs);
 
     const handleClick = () => {
         setIsCreateBlogActive(!isCreateBlogActive);
@@ -33,7 +33,7 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
             className={`bg-gray-50 overflow-y-scroll  ${
                 isCreateBlogActive || blogToEdit ? "h-auto w-full" : "h-full"
             } py-6  ${isUserBlogList ? "pr-20" : "px-48"}  
-            flex justify-center`}
+            flex justify-center mb-4`}
         >
             {(isCreateBlogActive || blogToEdit) && (
                 <BlogForm
@@ -57,24 +57,27 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                 />
             )}
             {!blogToEdit && !isCreateBlogActive && !singleBlog && (
-                <div
-                    className={`${
-                        !blogs.length ? "w-full" : "w-fit"
-                    } grid xl:grid-cols-2 grid-cols-1 gap-y-12 gap-x-14 justify-items-center`}
-                >
-                    <CreateBlogInputButton handleClick={handleClick} />
-                    {blogs.map((blog) => {
-                        return (
-                            <BlogCard
-                                blog={blog}
-                                key={blog.id}
-                                toggleSingleBlog={toggleSingleBlog}
-                                toggleEditBlog={toggleEditBlog}
-                                toggleProfileDetails={toggleProfileDetails}
-                            />
-                        );
-                    })}
-                </div>
+                <>
+                    <div
+                        className={`${
+                            !blogs.length ? "w-full" : "w-fit"
+                        } grid xl:grid-cols-2 grid-cols-1 gap-y-12 gap-x-14 justify-items-center`}
+                    >
+                        <CreateBlogInputButton handleClick={handleClick} />
+                        {blogs.map((blog) => {
+                            return (
+                                <BlogCard
+                                    blog={blog}
+                                    key={blog.id}
+                                    toggleSingleBlog={toggleSingleBlog}
+                                    toggleEditBlog={toggleEditBlog}
+                                    toggleProfileDetails={toggleProfileDetails}
+                                />
+                            );
+                        })}
+                        <Paginate />
+                    </div>
+                </>
             )}
         </div>
     );

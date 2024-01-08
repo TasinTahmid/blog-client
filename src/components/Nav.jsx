@@ -113,20 +113,13 @@ const Nav = () => {
                         </svg>
                     )}
                     {user && isMenuActive && (
-                        <div className="absolute top-8 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
+                        <div className="absolute border-gray-100 top-8 right-3 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg">
                             <NavLink
                                 to="/profile"
                                 state={{ id: user.id }}
                                 className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
                             >
                                 {user.username}
-                            </NavLink>
-                            <NavLink
-                                to="/profile"
-                                state={{ id: user.id }}
-                                className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
-                            >
-                                Edit Profile
                             </NavLink>
 
                             <div

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import pageTypeReducer from "./pageTypeSlice";
-import blogTypesReducer from "./blogSlice";
+import blogReducer from "./blogSlice";
 import storage from "redux-persist/lib/storage";
 import {
     persistReducer,
@@ -20,18 +20,27 @@ const persistConfig = {
     storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedPageTypeReducer = persistReducer(persistConfig, pageTypeReducer);
+const persistedBlogReducer = persistReducer(persistConfig, blogReducer);
 
 const store = configureStore({
     reducer: {
-        auth: persistedReducer,
-        pageType: pageTypeReducer,
-        blogTypes: blogTypesReducer,
+        auth: persistedAuthReducer,
+        pageType: persistedPageTypeReducer,
+        blog: persistedBlogReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: [
+                    FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER,
+                ],
             },
         }),
 });

@@ -3,12 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     blogList: [],
     userBlogList: [],
+    pageNumber: 1,
+    allBlogCount: 0,
+    userBlogCount: 0,
 };
 
 export const blogSlice = createSlice({
     name: "blogListTypes",
     initialState,
     reducers: {
+        setPageNumber: (state, action) => {
+            console.log("page no.", action.payload);
+            state.pageNumber = action.payload;
+        },
         setBlogs: (state, action) => {
             state.blogList = action.payload;
         },
@@ -44,6 +51,7 @@ export const blogSlice = createSlice({
 });
 
 export const {
+    setPageNumber,
     setBlogs,
     setUserBlogs,
     addNewBlog,
