@@ -10,9 +10,6 @@ import Footer from "./components/Footer";
 
 function App() {
     const token = useSelector((state) => state.auth.token);
-    useEffect(() => {
-        console.log("token first", token);
-    });
 
     return (
         <>

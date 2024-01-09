@@ -28,6 +28,7 @@ const Form = () => {
             }
         );
 
+        console.log("in auth.jsx", response.data);
         if (response.data.token) {
             dispatch(
                 setLogin({

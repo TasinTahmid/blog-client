@@ -2,16 +2,14 @@ import axios from "axios";
 import BlogContainer from "../components/BlogContainer";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setBlogs } from "../states/blogSlice";
+import { setBlogs, setAllBlogCount } from "../states/blogSlice";
 import DotLoader from "react-spinners/DotLoader";
-import CreateBlogInputButton from "../components/CreateBlogInputButton";
 
 const Home = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-    const [pageSize, setPageSize] = useState(4);
-    const pageNumber = useSelector((state) => state.blog.pageNumber);
-    console.log("page in home ,", pageNumber);
+    const [pageSize, setPageSize] = useState(6);
+    const pageNumber = useSelector((state) => state.blog.pageNumberForAllBlogs);
 
     useEffect(() => {
         setLoading(true);
@@ -24,7 +22,9 @@ const Home = () => {
                     },
                 }
             );
-            dispatch(setBlogs(response.data));
+            console.log("blogAndCount", response.data);
+            dispatch(setBlogs(response.data.blogList));
+            dispatch(setAllBlogCount(response.data.count));
             setTimeout(() => {
                 setLoading(false);
             }, 600);

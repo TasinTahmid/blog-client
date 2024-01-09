@@ -14,21 +14,36 @@ import {
     REGISTER,
 } from "redux-persist";
 
-const persistConfig = {
-    key: "root",
+const authPersistConfig = {
+    key: "auth",
     version: 1,
     storage,
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-const persistedPageTypeReducer = persistReducer(persistConfig, pageTypeReducer);
-const persistedBlogReducer = persistReducer(persistConfig, blogReducer);
+const pageTypePersistConfig = {
+    key: "pageType",
+    version: 1,
+    storage,
+};
+
+const blogPersistConfig = {
+    key: "blog",
+    version: 1,
+    storage,
+};
+
+const createPersistedReducer = (persistConfig, reducer) => {
+    return persistReducer(persistConfig, reducer);
+};
 
 const store = configureStore({
     reducer: {
-        auth: persistedAuthReducer,
-        pageType: persistedPageTypeReducer,
-        blog: persistedBlogReducer,
+        auth: createPersistedReducer(authPersistConfig, authReducer),
+        pageType: createPersistedReducer(
+            pageTypePersistConfig,
+            pageTypeReducer
+        ),
+        blog: createPersistedReducer(blogPersistConfig, blogReducer),
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

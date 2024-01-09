@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteBlogById } from "../states/blogSlice";
+import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
 
 const BlogCard = ({
     blog,
@@ -32,6 +32,7 @@ const BlogCard = ({
             );
             console.log(response.data);
             dispatch(deleteBlogById(response.data.id));
+            dispatch(decreaseBlogCount());
         } catch (error) {
             console.log("error...", error.response);
         }

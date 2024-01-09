@@ -11,7 +11,6 @@ const Nav = () => {
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
-    console.log("from nav bar user is:", user);
 
     const handleLogOut = () => {
         setIsMenuActive(false);

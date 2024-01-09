@@ -75,7 +75,7 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                                 />
                             );
                         })}
-                        <Paginate />
+                        <Paginate isUserBlogList={isUserBlogList} />
                     </div>
                 </>
             )}

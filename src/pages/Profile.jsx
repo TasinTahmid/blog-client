@@ -1,38 +1,44 @@
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import BlogContainer from "../components/BlogContainer";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setUserBlogs } from "../states/blogSlice";
+import { useSelector, useDispatch } from "react-redux";
 import DotLoader from "react-spinners/DotLoader";
 import ProfileDetails from "../components/ProfileDetails";
 import PasswordUpdateForm from "../components/PasswordUpdateForm";
+import { setUserBlogs, setUserBlogCount } from "../states/blogSlice";
 
 const Profile = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [profileSettings, setProfileSettings] = useState(false);
     const [showProfileDetails, setShowProfileDetails] = useState(true);
-    const { state } = useLocation();
-    console.log("user state", state);
+    const [pageSize, setPageSize] = useState(6);
+
+    const pageNumber = useSelector(
+        (state) => state.blog.pageNumberForUserBlogs
+    );
+    const user = useSelector((state) => state.auth.user);
+    console.log("from profile", user);
 
     useEffect(() => {
         setLoading(true);
         const fetchBlogs = async () => {
             const response = await axios.get(
-                `http://localhost:5000/api/v1/users/${state.id}/blogs`,
+                `http://localhost:5000/api/v1/users/${user.id}/blogs?page=${pageNumber}&size=${pageSize}`,
                 {
                     headers: {
                         Accept: "application/json",
                     },
                 }
             );
-            dispatch(setUserBlogs(response.data));
+            console.log("blogAndCount", response.data);
+            dispatch(setUserBlogs(response.data.blogList));
+            dispatch(setUserBlogCount(response.data.count));
             setTimeout(() => {
                 setLoading(false);
             }, 600);
         };
-        state.id && fetchBlogs();
+        user.id && fetchBlogs();
     }, []);
 
     const toggleProfileSettings = () => {
