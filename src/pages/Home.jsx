@@ -1,36 +1,30 @@
-import axios from "axios";
 import BlogContainer from "../components/BlogContainer";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBlogs, setAllBlogCount } from "../states/blogSlice";
 import DotLoader from "react-spinners/DotLoader";
+import { useGetAllBlogsQuery } from "../api/blogApi";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
-    const [pageSize, setPageSize] = useState(6);
+    const [pageSize, setPageSize] = useState(4);
     const pageNumber = useSelector((state) => state.blog.pageNumberForAllBlogs);
 
+    const { data, error, isLoading } = useGetAllBlogsQuery({ pageNumber, pageSize });
+
+    const [loading, setLoading] = useState(isLoading);
+    console.log("this is rtk query data", data, isLoading);
+
     useEffect(() => {
-        setLoading(true);
-        const fetchBlogs = async () => {
-            const response = await axios.get(
-                `http://localhost:5000/api/v1/blogs?page=${pageNumber}&size=${pageSize}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
-            console.log("blogAndCount", response.data);
-            dispatch(setBlogs(response.data.blogList));
-            dispatch(setAllBlogCount(response.data.count));
+        dispatch(setBlogs(data?.blogList));
+        dispatch(setAllBlogCount(data?.count));
+        console.log("blog list upadated.");
+        if (!isLoading) {
             setTimeout(() => {
                 setLoading(false);
             }, 600);
-        };
-        fetchBlogs();
-    }, [pageNumber]);
+        }
+    }, [data, isLoading, pageNumber, dispatch]);
 
     return (
         <div className="bg-gray-50 h-5/6 overflow-auto">

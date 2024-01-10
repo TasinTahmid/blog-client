@@ -3,11 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    addNewBlog,
-    updateBlogById,
-    increaseBlogCount,
-} from "../states/blogSlice";
+import { addNewBlog, updateBlogById, increaseBlogCount } from "../states/blogSlice";
 
 const BlogForm = ({
     isCreateBlog,
@@ -18,7 +14,6 @@ const BlogForm = ({
     isUserBlogList,
     singleBlog,
 }) => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { user, token } = useSelector((state) => state.auth);

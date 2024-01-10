@@ -53,9 +53,7 @@ const Nav = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        isActive
-                            ? "underline underline-offset-2 font-semibold"
-                            : ""
+                        isActive ? "underline underline-offset-2 font-semibold" : ""
                     }
                 >
                     Home
@@ -66,9 +64,7 @@ const Nav = () => {
                             to="/profile"
                             state={{ id: user.id }}
                             className={({ isActive }) =>
-                                isActive
-                                    ? "underline underline-offset-2 font-semibold"
-                                    : ""
+                                isActive ? "underline underline-offset-2 font-semibold" : ""
                             }
                         >
                             Profile
@@ -102,12 +98,12 @@ const Nav = () => {
                                 e.stopPropagation();
                                 setIsMenuActive(!isMenuActive);
                             }}
-                            class="w-10 h-10 hover:cursor-pointer"
+                            className="w-10 h-10 hover:cursor-pointer"
                         >
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                             />
                         </svg>
                     )}
