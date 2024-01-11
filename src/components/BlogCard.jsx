@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
+import { useDeleteBlogMutation } from "../api/blogApi";
 
 const BlogCard = ({
     blog,
     toggleSingleBlog,
     toggleEditBlog,
     toggleProfileDetails,
+    isUserBlogList,
 }) => {
     const dispatch = useDispatch();
 
     const { user, token } = useSelector((state) => state.auth);
+    const [deleteBlog, data] = useDeleteBlogMutation();
 
     const time = blog.createdAt.split("T")[0];
     const text =
@@ -19,33 +21,21 @@ const BlogCard = ({
             ? blog.blogContent.substring(0, 150).concat("...")
             : blog.blogContent.concat("...");
 
-    const deleteBlog = async () => {
-        try {
-            const response = await axios.delete(
-                `http://localhost:5000/api/v1/blogs/${blog.id}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(response.data);
-            dispatch(deleteBlogById(response.data.id));
-            dispatch(decreaseBlogCount());
-        } catch (error) {
-            console.log("error...", error.response);
-        }
+    const handleDelete = () => {
+        deleteBlog({ id: blog.id, token });
+        console.log("deleted Data", data);
+        dispatch(deleteBlogById(blog.id));
+        dispatch(decreaseBlogCount());
     };
 
     const handleReadMore = () => {
         toggleSingleBlog(blog);
-        toggleProfileDetails();
+        isUserBlogList && toggleProfileDetails();
     };
 
     const handleEdit = () => {
         toggleEditBlog(blog);
-        toggleProfileDetails();
+        isUserBlogList && toggleProfileDetails();
     };
     return (
         <div className="bg-white rounded-sm shadow-xl deleteBlogById w-full py-10 px-14">
@@ -63,7 +53,7 @@ const BlogCard = ({
                         <span>|</span>
                         <button
                             className="text-red-600 rounded-md px-1 h-8 text-sm font-semibold  text-gray-900 hover:underline hover:underline-offset-2 active:bg-gray-50"
-                            onClick={deleteBlog}
+                            onClick={handleDelete}
                         >
                             Delete
                         </button>

@@ -6,13 +6,14 @@ export const userApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:5000/api/v1/users",
     }),
-
+    tagTypes: ["User"],
     endpoints: (builder) => ({
         getUserBlogs: builder.query({
             query: ({ id, pageNumber, pageSize }) => ({
                 url: `/${id}/blogs?page=${pageNumber}&size=${pageSize}`,
                 method: "GET",
             }),
+            providesTags: ["User"],
         }),
     }),
 });

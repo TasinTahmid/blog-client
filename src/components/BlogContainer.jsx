@@ -72,6 +72,7 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                                     toggleSingleBlog={toggleSingleBlog}
                                     toggleEditBlog={toggleEditBlog}
                                     toggleProfileDetails={toggleProfileDetails}
+                                    isUserBlogList={isUserBlogList}
                                 />
                             );
                         })}

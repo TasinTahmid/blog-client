@@ -1,6 +1,8 @@
+import { useDeleteBlogMutation } from "../api/blogApi";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById } from "../states/blogSlice";
+import { decreaseBlogCount } from "../states/blogSlice";
 
 import axios from "axios";
 
@@ -14,7 +16,7 @@ const SingleBlog = ({
     const dispatch = useDispatch();
 
     const { user, token } = useSelector((state) => state.auth);
-    const blogs = useSelector((state) => state.blogTypes.blogList);
+    const blogs = useSelector((state) => state.blog.blogList);
 
     const blog = blogs.find((b) => b.id == blogId);
     const [time, setTime] = useState("");
@@ -23,39 +25,42 @@ const SingleBlog = ({
         setTime(blog.createdAt.split("T")[0]);
     }, []);
 
-    const deleteBlog = async () => {
-        try {
-            const response = await axios.delete(
-                `http://localhost:5000/api/v1/blogs/${blog.id}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(response.data);
-            dispatch(deleteBlogById(response.data.id));
-            toggleSingleBlog(null);
-        } catch (error) {
-            console.log("error...", error.response);
-        }
+    const [deleteBlog, data] = useDeleteBlogMutation();
+
+    // const deleteBlog = async () => {
+    //     try {
+    //         const response = await axios.delete(`http://localhost:5000/api/v1/blogs/${blog.id}`, {
+    //             headers: {
+    //                 Accept: "application/json",
+    //                 authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         console.log(response.data);
+    //         dispatch(deleteBlogById(response.data.id));
+    //         toggleSingleBlog(null);
+    //     } catch (error) {
+    //         console.log("error...", error.response);
+    //     }
+    // };
+    const handleDelete = () => {
+        deleteBlog({ id: blog.id, token });
+        console.log("token", token);
+        console.log("deleted Data", data);
+        dispatch(deleteBlogById(blog.id));
+        dispatch(decreaseBlogCount());
+        toggleSingleBlog(null);
     };
 
     const handleBack = () => {
         toggleSingleBlog(null);
         // console.log("in singleblog", isUserBlogList);
-        toggleProfileDetails();
+        isUserBlogList && toggleProfileDetails();
     };
     return (
-        <div
-            className={`${
-                isUserBlogList ? "w-4/5 " : "w-full"
-            }  h-full  bg-gray-50`}
-        >
+        <div className={`${isUserBlogList ? "w-4/5 " : "w-full"}  h-full  bg-gray-50`}>
             <button
                 type="button"
-                class="flex justify-between rounded-md text-sm p-2 font-semibold mb-4 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                className="flex justify-between rounded-md text-sm p-2 font-semibold mb-4 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
                 onClick={handleBack}
             >
                 <svg
@@ -91,7 +96,7 @@ const SingleBlog = ({
                         <span>|</span>
                         <button
                             className="text-red-600 rounded-md px-1 h-8 text-sm font-semibold  text-gray-900 hover:underline hover:underline-offset-2 active:bg-gray-50"
-                            onClick={deleteBlog}
+                            onClick={handleDelete}
                         >
                             Delete
                         </button>
