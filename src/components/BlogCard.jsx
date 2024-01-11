@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
-import { useDeleteBlogMutation } from "../api/blogApi";
+import { useDeleteBlogMutation } from "../apis/api";
 
 const BlogCard = ({
     blog,

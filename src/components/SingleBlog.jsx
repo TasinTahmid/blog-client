@@ -1,10 +1,8 @@
-import { useDeleteBlogMutation } from "../api/blogApi";
+import { useDeleteBlogMutation } from "../apis/api";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById } from "../states/blogSlice";
 import { decreaseBlogCount } from "../states/blogSlice";
-
-import axios from "axios";
 
 const SingleBlog = ({
     toggleSingleBlog,
@@ -57,7 +55,11 @@ const SingleBlog = ({
         isUserBlogList && toggleProfileDetails();
     };
     return (
-        <div className={`${isUserBlogList ? "w-4/5 " : "w-full"}  h-full  bg-gray-50`}>
+        <div
+            className={`${
+                isUserBlogList ? "w-4/5 " : "w-full"
+            }  h-full  bg-gray-50`}
+        >
             <button
                 type="button"
                 className="flex justify-between rounded-md text-sm p-2 font-semibold mb-4 text-gray-900 hover:bg-gray-100 active:bg-gray-50"

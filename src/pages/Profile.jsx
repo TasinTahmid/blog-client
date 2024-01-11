@@ -5,7 +5,7 @@ import DotLoader from "react-spinners/DotLoader";
 import ProfileDetails from "../components/ProfileDetails";
 import PasswordUpdateForm from "../components/PasswordUpdateForm";
 import { setUserBlogs, setUserBlogCount } from "../states/blogSlice";
-import { useGetUserBlogsQuery } from "../api/userApi";
+import { useGetUserBlogsQuery } from "../apis/api";
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -13,10 +13,16 @@ const Profile = () => {
     const [showProfileDetails, setShowProfileDetails] = useState(true);
     const [pageSize, setPageSize] = useState(4);
 
-    const pageNumber = useSelector((state) => state.blog.pageNumberForUserBlogs);
+    const pageNumber = useSelector(
+        (state) => state.blog.pageNumberForUserBlogs
+    );
     const user = useSelector((state) => state.auth.user);
 
-    const { data, error, isLoading } = useGetUserBlogsQuery({ id: user.id, pageNumber, pageSize });
+    const { data, error, isLoading } = useGetUserBlogsQuery({
+        id: user.id,
+        pageNumber,
+        pageSize,
+    });
 
     const [loading, setLoading] = useState(isLoading);
     console.log("this is rtk query data", data, isLoading);
@@ -62,11 +68,15 @@ const Profile = () => {
     return (
         <div className="pl-8 bg-gray-50 h-5/6  grid grid-cols-10 gap-10 overflow-auto ">
             {profileSettings ? (
-                <PasswordUpdateForm toggleProfileSettings={toggleProfileSettings} />
+                <PasswordUpdateForm
+                    toggleProfileSettings={toggleProfileSettings}
+                />
             ) : (
                 <>
                     {showProfileDetails && (
-                        <ProfileDetails toggleProfileSettings={toggleProfileSettings} />
+                        <ProfileDetails
+                            toggleProfileSettings={toggleProfileSettings}
+                        />
                     )}
                     <div
                         className={`col-span-7 h-full ${

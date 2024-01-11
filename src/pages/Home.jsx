@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBlogs, setAllBlogCount } from "../states/blogSlice";
 import DotLoader from "react-spinners/DotLoader";
-import { useGetAllBlogsQuery } from "../api/blogApi";
+import { useGetAllBlogsQuery } from "../apis/api";
 
 const Home = () => {
     const dispatch = useDispatch();
     const [pageSize, setPageSize] = useState(4);
     const pageNumber = useSelector((state) => state.blog.pageNumberForAllBlogs);
 
-    const { data, error, isLoading } = useGetAllBlogsQuery({ pageNumber, pageSize });
+    const { data, error, isLoading } = useGetAllBlogsQuery({
+        pageNumber,
+        pageSize,
+    });
 
     const [loading, setLoading] = useState(isLoading);
     console.log("this is rtk query data", data, isLoading);

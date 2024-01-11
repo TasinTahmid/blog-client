@@ -103,7 +103,7 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
                 <div className="mt-6 flex items-center justify-between gap-x-6">
                     <button
                         type="button"
-                        class="rounded-md text-sm font-semibold px-4 py-2 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                        className="rounded-md text-sm font-semibold px-4 py-2 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
                         onClick={toggleProfileSettings}
                     >
                         Cancel
