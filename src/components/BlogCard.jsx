@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
+import { useNavigate } from "react-router-dom";
 import { useDeleteBlogMutation } from "../apis/api";
 
 const BlogCard = ({
@@ -11,6 +12,7 @@ const BlogCard = ({
     isUserBlogList,
 }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { user, token } = useSelector((state) => state.auth);
     const [deleteBlog, data] = useDeleteBlogMutation();
@@ -29,8 +31,9 @@ const BlogCard = ({
     };
 
     const handleReadMore = () => {
-        toggleSingleBlog(blog);
+        // toggleSingleBlog(blog);
         isUserBlogList && toggleProfileDetails();
+        navigate(`/blogs/${blog.id}`, { state: { isUserBlogList } });
     };
 
     const handleEdit = () => {

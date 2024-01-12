@@ -46,7 +46,7 @@ const Pagination = ({ isUserBlogList }) => {
                     previousClassName="mr-4 bg-gray-600 w-28 rounded-md text-white px-4 py-2"
                     nextClassName="ml-4 bg-gray-600 w-28 rounded-md text-white px-4 py-2 flex justify-center "
                     activeClassName="bg-gray-600 rounded-full text-white py-2"
-                    disabledClassName="bg-gray-300 cursor-not-allowed"
+                    disabledClassName="bg-gray-400 cursor-not-allowed"
                     disabledLinkClassName=" cursor-not-allowed"
                 />
             )}

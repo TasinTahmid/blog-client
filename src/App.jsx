@@ -5,6 +5,7 @@ import HomePage from "./pages/Home";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import BlogDetails from "./pages/BlogDetails";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/auth" element={<AuthPage />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/blogs/:id" element={<BlogDetails />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

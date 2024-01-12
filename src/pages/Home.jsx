@@ -16,12 +16,14 @@ const Home = () => {
     });
 
     const [loading, setLoading] = useState(isLoading);
-    console.log("this is rtk query data", data, isLoading);
+    // console.log("this is rtk query data", data, isLoading);
 
     useEffect(() => {
-        dispatch(setBlogs(data?.blogList));
-        dispatch(setAllBlogCount(data?.count));
-        console.log("blog list upadated.");
+        if (data) {
+            dispatch(setBlogs(data.blogList));
+            dispatch(setAllBlogCount(data.count));
+            console.log("blog list upadated.");
+        }
         if (!isLoading) {
             setTimeout(() => {
                 setLoading(false);

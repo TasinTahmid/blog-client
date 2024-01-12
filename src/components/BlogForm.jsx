@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewBlog, updateBlogById, increaseBlogCount } from "../states/blogSlice";
+import { useCreateBlogMutation, useUpdateBlogMutation } from "../apis/api";
 
 const BlogForm = ({
     isCreateBlog,
@@ -15,62 +16,76 @@ const BlogForm = ({
     singleBlog,
 }) => {
     const dispatch = useDispatch();
+    const [createBlog, createRespose] = useCreateBlogMutation();
+    const [updateBlog, updateResponse] = useUpdateBlogMutation();
 
     const { user, token } = useSelector((state) => state.auth);
 
-    const [title, setTitle] = useState(blog?.title);
-    const [blogContent, setBlogContent] = useState(blog?.blogContent);
+    const [title, setTitle] = useState(blog?.title || "");
+    const [blogContent, setBlogContent] = useState(blog?.blogContent || "");
 
-    const createBlog = async () => {
-        try {
-            const response = await axios.post(
-                "http://localhost:5000/api/v1/blogs",
-                {
-                    title,
-                    blogContent,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            dispatch(addNewBlog(response.data));
-            dispatch(increaseBlogCount());
-            handleClick();
-        } catch (error) {
-            console.log("error...", error.response);
-        }
+    // const createBlog = async () => {
+    //     try {
+    //         const response = await axios.post(
+    //             "http://localhost:5000/api/v1/blogs",
+    //             {
+    //                 title,
+    //                 blogContent,
+    //             },
+    //             {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     authorization: `Bearer ${token}`,
+    //                 },
+    //             }
+    //         );
+    //         dispatch(addNewBlog(response.data));
+    //         dispatch(increaseBlogCount());
+    //         handleClick();
+    //     } catch (error) {
+    //         console.log("error...", error.response);
+    //     }
+    // };
+    const handleCreate = () => {
+        createBlog({ body: { title, blogContent }, token });
+        // dispatch(addNewBlog(blog));
+        // dispatch(increaseBlogCount());
+        handleClick();
+        console.log("after create response", createBlog);
     };
-    const updateBlog = async () => {
-        try {
-            const response = await axios.put(
-                `http://localhost:5000/api/v1/blogs/${blog.id}`,
-                {
-                    title,
-                    blogContent,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(response.data);
-            dispatch(updateBlogById(response.data));
-            toggleEditBlog(null);
-        } catch (error) {
-            console.log("error...", error.response);
-        }
+
+    const handleUpdate = () => {
+        updateBlog({ id: blog.id, body: { title, blogContent }, token });
+        toggleEditBlog(null);
+        console.log("after update response", updateBlog);
     };
+    // const updateBlog = async () => {
+    //     try {
+    //         const response = await axios.put(
+    //             `http://localhost:5000/api/v1/blogs/${blog.id}`,
+    //             {
+    //                 title,
+    //                 blogContent,
+    //             },
+    //             {
+    //                 headers: {
+    //                     Accept: "application/json",
+    //                     authorization: `Bearer ${token}`,
+    //                 },
+    //             }
+    //         );
+    //         console.log(response.data);
+    //         dispatch(updateBlogById(response.data));
+    //         toggleEditBlog(null);
+    //     } catch (error) {
+    //         console.log("error...", error.response);
+    //     }
+    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (isCreateBlog) return await createBlog();
-        return await updateBlog();
+        if (isCreateBlog) return handleCreate();
+        return handleUpdate();
     };
 
     const handleCancel = () => {

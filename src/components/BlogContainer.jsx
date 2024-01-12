@@ -60,7 +60,7 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                 <>
                     <div
                         className={`${
-                            !blogs.length ? "w-full" : "w-fit"
+                            !blogs?.length ? "w-full" : "w-fit"
                         } grid xl:grid-cols-2 grid-cols-1 gap-y-12 gap-x-14 justify-items-center`}
                     >
                         <CreateBlogInputButton handleClick={handleClick} />
