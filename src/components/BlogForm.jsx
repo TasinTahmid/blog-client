@@ -3,7 +3,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewBlog, updateBlogById, increaseBlogCount } from "../states/blogSlice";
+import {
+    addNewBlog,
+    updateBlogById,
+    increaseBlogCount,
+} from "../states/blogSlice";
 import { useCreateBlogMutation, useUpdateBlogMutation } from "../apis/api";
 
 const BlogForm = ({
@@ -56,31 +60,9 @@ const BlogForm = ({
 
     const handleUpdate = () => {
         updateBlog({ id: blog.id, body: { title, blogContent }, token });
-        toggleEditBlog(null);
+        toggleEditBlog(title, blogContent);
         console.log("after update response", updateBlog);
     };
-    // const updateBlog = async () => {
-    //     try {
-    //         const response = await axios.put(
-    //             `http://localhost:5000/api/v1/blogs/${blog.id}`,
-    //             {
-    //                 title,
-    //                 blogContent,
-    //             },
-    //             {
-    //                 headers: {
-    //                     Accept: "application/json",
-    //                     authorization: `Bearer ${token}`,
-    //                 },
-    //             }
-    //         );
-    //         console.log(response.data);
-    //         dispatch(updateBlogById(response.data));
-    //         toggleEditBlog(null);
-    //     } catch (error) {
-    //         console.log("error...", error.response);
-    //     }
-    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -99,7 +81,7 @@ const BlogForm = ({
             return;
         }
 
-        toggleEditBlog(null);
+        toggleEditBlog(title, blogContent);
         return;
     };
     return (

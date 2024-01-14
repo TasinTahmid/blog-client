@@ -8,9 +8,9 @@ import SingleBlog from "./SingleBlog";
 import Paginate from "./Pagination";
 
 const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
-    const [singleBlog, setSingleBlog] = useState(null);
     const [isCreateBlogActive, setIsCreateBlogActive] = useState(false);
     const [blogToEdit, setBlogToEdit] = useState(null);
+    const [isEditOn, setIsEditOn] = useState(false);
 
     const blogs = useSelector((state) =>
         isUserBlogList ? state.blog.userBlogList : state.blog.blogList
@@ -22,20 +22,17 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
     };
     const toggleEditBlog = (blog) => {
         setBlogToEdit(blog);
-    };
-
-    const toggleSingleBlog = (blog) => {
-        setSingleBlog(blog);
+        setIsEditOn(!isEditOn);
     };
 
     return (
         <div
             className={`bg-gray-50 overflow-y-scroll  ${
-                isCreateBlogActive || blogToEdit ? "h-auto w-full" : "h-full"
+                isCreateBlogActive || isEditOn ? "h-auto w-full" : "h-full"
             } py-6  ${isUserBlogList ? "pr-20" : "px-48"}  
             flex justify-center mb-4`}
         >
-            {(isCreateBlogActive || blogToEdit) && (
+            {(isCreateBlogActive || isEditOn) && (
                 <BlogForm
                     isCreateBlog={isCreateBlogActive}
                     blog={blogToEdit}
@@ -43,20 +40,10 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                     toggleEditBlog={toggleEditBlog}
                     toggleProfileDetails={toggleProfileDetails}
                     isUserBlogList={isUserBlogList}
-                    singleBlog={singleBlog}
                 />
             )}
 
-            {singleBlog && !blogToEdit && (
-                <SingleBlog
-                    blogId={singleBlog.id}
-                    toggleSingleBlog={toggleSingleBlog}
-                    toggleEditBlog={toggleEditBlog}
-                    toggleProfileDetails={toggleProfileDetails}
-                    isUserBlogList={isUserBlogList}
-                />
-            )}
-            {!blogToEdit && !isCreateBlogActive && !singleBlog && (
+            {!isEditOn && !isCreateBlogActive && (
                 <>
                     <div
                         className={`${
@@ -69,7 +56,6 @@ const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {
                                 <BlogCard
                                     blog={blog}
                                     key={blog.id}
-                                    toggleSingleBlog={toggleSingleBlog}
                                     toggleEditBlog={toggleEditBlog}
                                     toggleProfileDetails={toggleProfileDetails}
                                     isUserBlogList={isUserBlogList}

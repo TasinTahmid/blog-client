@@ -62,8 +62,6 @@ export const blogSlice = createSlice({
             state.userBlogList = state.userBlogList.filter(
                 (blog) => action.payload != blog.id
             );
-
-            // api.util.invalidateTags(["Blog", "User"]);
         },
     },
 });
