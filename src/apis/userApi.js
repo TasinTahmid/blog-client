@@ -7,6 +7,7 @@ export const userApi = createApi({
         baseUrl: "http://localhost:5000/api/v1/users",
     }),
     tagTypes: ["User"],
+
     endpoints: (builder) => ({
         getUserBlogs: builder.query({
             query: ({ id, pageNumber, pageSize }) => ({
@@ -17,7 +18,14 @@ export const userApi = createApi({
         }),
         createUser: builder.mutation({
             query: ({ body }) => ({
-                url: `/`,
+                url: `/register`,
+                method: "POST",
+                body,
+            }),
+        }),
+        loginUser: builder.mutation({
+            query: ({ body }) => ({
+                url: `/login`,
                 method: "POST",
                 body,
             }),
@@ -25,4 +33,8 @@ export const userApi = createApi({
     }),
 });
 
-export const { useGetUserBlogsQuery, useCreateUserMutation } = userApi;
+export const {
+    useGetUserBlogsQuery,
+    useCreateUserMutation,
+    useLoginUserMutation,
+} = userApi;

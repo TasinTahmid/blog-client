@@ -50,18 +50,18 @@ const BlogForm = ({
     //         console.log("error...", error.response);
     //     }
     // };
-    const handleCreate = () => {
-        createBlog({ body: { title, blogContent }, token });
+    const handleCreate = async () => {
+        const res = await createBlog({ body: { title, blogContent }, token });
         // dispatch(addNewBlog(blog));
         // dispatch(increaseBlogCount());
         handleClick();
-        console.log("after create response", createBlog);
+        console.log("after create response", res);
     };
 
-    const handleUpdate = () => {
-        updateBlog({ id: blog.id, body: { title, blogContent }, token });
+    const handleUpdate = async () => {
+        await updateBlog({ id: blog.id, body: { title, blogContent }, token });
         toggleEditBlog(title, blogContent);
-        console.log("after update response", updateBlog);
+        console.log("after update response", updateResponse);
     };
 
     const handleSubmit = async (event) => {

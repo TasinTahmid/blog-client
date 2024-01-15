@@ -5,33 +5,56 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setPageTypeLogin, setPageTypeRegister } from "../states/pageTypeSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
-import userSchema from "../schemas/user.schema.js";
-import { useCreateUserMutation } from "../apis/userApi.js";
+import { registerSchema, loginSchema } from "../schemas/user.schema.js";
+import {
+    useCreateUserMutation,
+    useLoginUserMutation,
+} from "../apis/userApi.js";
+import { setLogin } from "../states/authSlice.js";
 
 const UserForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [createUser, responseData] = useCreateUserMutation();
+    const [createUser] = useCreateUserMutation();
+    const [loginUser] = useLoginUserMutation();
 
     const { pageType } = useSelector((state) => state.pageType);
+
     const { register, handleSubmit, control, formState } = useForm({
-        resolver: yupResolver(userSchema),
+        resolver: yupResolver(
+            pageType == "register" ? registerSchema : loginSchema
+        ),
     });
 
     const { errors } = formState;
 
-    const handleRegister = () => {};
-    const handleLogin = () => {};
+    const handleRegister = async (data) => {
+        const response = await createUser({ body: data });
+        console.log("response", response);
+
+        if (response.data) {
+            dispatch(setLogin(response.data));
+            navigate("/");
+        }
+    };
+    const handleLogin = async (data) => {
+        const response = await loginUser({ body: data });
+        console.log("response", response);
+
+        if (response.data) {
+            dispatch(setLogin(response.data));
+            navigate("/");
+        }
+    };
 
     const onSubmit = (data) => {
         console.log(data);
-        if (pageType == "register") return createUser({ body: data });
-        return handleLogin();
+        if (pageType == "register") return handleRegister(data);
+        return handleLogin(data);
     };
 
     return (
         <div className="h-full flex justify-center bg-gray-50">
-            {pageType}
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
@@ -55,7 +78,9 @@ const UserForm = () => {
                             {...register("username")}
                             className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
-                        <p className="text-red-600">{errors.username?.message}</p>
+                        <p className="text-red-600">
+                            {errors.username?.message}
+                        </p>
                     </div>
                 )}
                 <div className="mb-2 p-4">
@@ -102,7 +127,9 @@ const UserForm = () => {
                             {...register("confirmPassword")}
                             className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
-                        <p className="text-red-600">{errors.confirmPassword?.message}</p>
+                        <p className="text-red-600">
+                            {errors.confirmPassword?.message}
+                        </p>
                     </div>
                 )}
 
@@ -112,7 +139,9 @@ const UserForm = () => {
                         className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
                         onClick={() => {
                             dispatch(
-                                pageType == "register" ? setPageTypeLogin() : setPageTypeRegister()
+                                pageType == "register"
+                                    ? setPageTypeLogin()
+                                    : setPageTypeRegister()
                             );
                         }}
                     >

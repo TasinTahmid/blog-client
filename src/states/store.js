@@ -41,14 +41,25 @@ const createPersistedReducer = (persistConfig, reducer) => {
 const store = configureStore({
     reducer: {
         auth: createPersistedReducer(authPersistConfig, authReducer),
-        pageType: createPersistedReducer(pageTypePersistConfig, pageTypeReducer),
+        pageType: createPersistedReducer(
+            pageTypePersistConfig,
+            pageTypeReducer
+        ),
         blog: createPersistedReducer(blogPersistConfig, blogReducer),
         [api.reducerPath]: api.reducer,
+        [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: [
+                    FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER,
+                ],
             },
         })
             .concat(api.middleware)
