@@ -10,11 +10,9 @@ export const pageTypeSlice = createSlice({
     reducers: {
         setPageTypeLogin: (state) => {
             state.pageType = "login";
-            console.log("setpageLogin");
         },
         setPageTypeRegister: (state) => {
             state.pageType = "register";
-            console.log("setpageRegister");
         },
     },
 });

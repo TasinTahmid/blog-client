@@ -154,9 +154,7 @@ const Form = () => {
                         className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
                         onClick={() =>
                             dispatch(
-                                pageType == "register"
-                                    ? setPageTypeLogin()
-                                    : setPageTypeRegister()
+                                pageType == "register" ? setPageTypeLogin() : setPageTypeRegister()
                             )
                         }
                     >

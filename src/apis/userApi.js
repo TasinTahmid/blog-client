@@ -15,7 +15,14 @@ export const userApi = createApi({
             }),
             providesTags: ["User"],
         }),
+        createUser: builder.mutation({
+            query: ({ body }) => ({
+                url: `/`,
+                method: "POST",
+                body,
+            }),
+        }),
     }),
 });
 
-export const { useGetUserBlogsQuery } = userApi;
+export const { useGetUserBlogsQuery, useCreateUserMutation } = userApi;

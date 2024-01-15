@@ -14,14 +14,11 @@ const BlogDetails = () => {
     const [text, setText] = useState("");
     useEffect(() => {
         const fetchBlog = async () => {
-            const response = await axios.get(
-                `http://localhost:5000/api/v1/blogs/${id}`,
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
+            const response = await axios.get(`http://localhost:5000/api/v1/blogs/${id}`, {
+                headers: {
+                    Accept: "application/json",
+                },
+            });
 
             setBlog(response.data);
             setTime(response.data.createdAt.split("T")[0]);
