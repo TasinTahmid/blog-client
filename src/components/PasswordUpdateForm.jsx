@@ -72,7 +72,7 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
     };
 
     return (
-        <div className="relative top-10  h-fit w-fit bg-gray-50 flex justify-center px-auto">
+        <div className="relative top-80 h-fit w-fit bg-gray-50 flex justify-center">
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 noValidate
