@@ -30,6 +30,14 @@ export const userApi = createApi({
                 body,
             }),
         }),
+        updatePassword: builder.mutation({
+            query: ({ id, body, token }) => ({
+                url: `/${id}`,
+                method: "PATCH",
+                body,
+                headers: { authorization: `Bearer ${token}` },
+            }),
+        }),
     }),
 });
 
@@ -37,4 +45,5 @@ export const {
     useGetUserBlogsQuery,
     useCreateUserMutation,
     useLoginUserMutation,
+    useUpdatePasswordMutation,
 } = userApi;

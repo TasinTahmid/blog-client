@@ -1,49 +1,83 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { passwordUpdateSchema } from "../schemas/user.schema";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLogout } from "../states/authSlice";
+import { useUpdatePasswordMutation } from "../apis/userApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PasswordUpdateForm = ({ toggleProfileSettings }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    console.log("innnn");
-    const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [reEnteredNewPassword, setReEnteredNewPassword] = useState("");
+    const [updatePassword] = useUpdatePasswordMutation();
 
     const { user, token } = useSelector((state) => state.auth);
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        console.log("updata pass,", user.id);
-        try {
-            const response = await axios.patch(
-                `http://localhost:5000/api/v1/users/${user.id}`,
-                {
-                    oldPassword,
-                    newPassword,
-                },
-                {
-                    headers: {
-                        Accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(response.data);
-            toggleProfileSettings();
-            navigate("/");
-            dispatch(setLogout());
-        } catch (error) {
-            console.log("error...", error.response);
+    const { register, handleSubmit, formState } = useForm({
+        resolver: yupResolver(passwordUpdateSchema),
+    });
+
+    const { errors } = formState;
+
+    const onSubmit = async (body) => {
+        console.log("update body,", body);
+
+        const response = await updatePassword({ id: user.id, body, token });
+
+        console.log("after update", response);
+
+        if (response.data) {
+            toast.success("Password updated successfully.", {
+                position: "bottom-right",
+                autoClose: 700,
+            });
+
+            setTimeout(() => {
+                navigate("/");
+                dispatch(setLogout());
+            }, 1200);
         }
+        if (response.error) {
+            toast.error(response.error.data.message, {
+                position: "bottom-right",
+                autoClose: 1500,
+            });
+        }
+        // try {
+        //     const response = await axios.patch(
+        //         `http://localhost:5000/api/v1/users/${user.id}`,
+        //         {
+        //             oldPassword,
+        //             newPassword,
+        //         },
+        //         {
+        //             headers: {
+        //                 Accept: "application/json",
+        //                 authorization: `Bearer ${token}`,
+        //             },
+        //         }
+        //     );
+        //     console.log(response.data);
+        //     toggleProfileSettings();
+        //     navigate("/");
+        //     dispatch(setLogout());
+        // } catch (error) {
+        //     console.log("error...", error.response);
+        // }
     };
 
     return (
-        <div className="w-screen  bg-gray-50 flex justify-center px-auto">
-            <form className="rounded-md w-1/3 my-6  bg-gray-50 shadow-2xl p-14">
+        <div className="relative top-10  h-fit w-fit bg-gray-50 flex justify-center px-auto">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                className="rounded-md w-full my-6  bg-gray-50 shadow-2xl p-14"
+            >
                 <div className="w-full space-y-12 border-b border-gray-900/10 pb-12">
                     <h2 className="text-2xl font-semibold leading-10 text-gray-900">
                         Change Password
@@ -58,13 +92,12 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
                         </label>
                         <div className="mt-2">
                             <input
+                                type="password"
                                 id="oldPassword"
-                                value={oldPassword}
-                                onChange={(e) => {
-                                    setOldPassword(e.target.value);
-                                }}
+                                {...register("oldPassword")}
                                 className="mb-6 block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                             />
+                            <p className="text-red-600">{errors.oldPassword?.message}</p>
                         </div>
                         <label
                             htmlFor="newPassword"
@@ -74,29 +107,27 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
                         </label>
                         <div className="mt-2">
                             <input
+                                type="password"
                                 id="newPassword"
-                                value={newPassword}
-                                onChange={(e) => {
-                                    setNewPassword(e.target.value);
-                                }}
+                                {...register("newPassword")}
                                 className="mb-6 block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                             />
+                            <p className="text-red-600">{errors.newPassword?.message}</p>
                         </div>
                         <label
-                            htmlFor="reEnteredNewPassword"
+                            htmlFor="confirmNewPassword"
                             className="block text-sm font-medium leading-6 text-gray-900"
                         >
                             Confirm New Password
                         </label>
                         <div className="mt-2">
                             <input
-                                id="reEnteredNewPassword"
-                                value={reEnteredNewPassword}
-                                onChange={(e) => {
-                                    setReEnteredNewPassword(e.target.value);
-                                }}
+                                type="password"
+                                id="confirmNewPassword"
+                                {...register("confirmNewPassword")}
                                 className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                             />
+                            <p className="text-red-600">{errors.confirmNewPassword?.message}</p>
                         </div>
                     </div>
                 </div>
@@ -111,12 +142,12 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
                     <button
                         type="submit"
                         className=" rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
-                        onClick={handleUpdate}
                     >
                         Update Password
                     </button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 };

@@ -6,9 +6,7 @@ const registerSchema = Yup.object().shape({
         .min(3, "Username must be at least 3 characters")
         .max(20, "Username cannot exceed 20 characters")
         .matches(/^\S*$/, "Username cannot contain spaces"),
-    email: Yup.string()
-        .required("Email is required")
-        .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
 
     password: Yup.string()
         .required("Password is required")
@@ -20,13 +18,25 @@ const registerSchema = Yup.object().shape({
 });
 
 const loginSchema = Yup.object().shape({
-    email: Yup.string()
-        .required("Email is required")
-        .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
 
     password: Yup.string()
         .required("Password is required")
         .min(4, "Password must be at least 4 characters"),
 });
 
-export { registerSchema, loginSchema };
+const passwordUpdateSchema = Yup.object().shape({
+    oldPassword: Yup.string()
+        .required("Password is required")
+        .min(4, "Password must be at least 4 characters"),
+
+    newPassword: Yup.string()
+        .required("Password is required")
+        .min(4, "Password must be at least 4 characters"),
+
+    confirmNewPassword: Yup.string()
+        .required("Please re-enter your password")
+        .oneOf([Yup.ref("newPassword")], "Passwords must match"),
+});
+
+export { registerSchema, loginSchema, passwordUpdateSchema };

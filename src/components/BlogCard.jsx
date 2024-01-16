@@ -4,13 +4,7 @@ import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
 import { useNavigate } from "react-router-dom";
 import { useDeleteBlogMutation } from "../apis/api";
 
-const BlogCard = ({
-    blog,
-    toggleSingleBlog,
-    toggleEditBlog,
-    toggleProfileDetails,
-    isUserBlogList,
-}) => {
+const BlogCard = ({ blog, toggleEditBlog, toggleProfileDetails, isUserBlogList }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -31,7 +25,6 @@ const BlogCard = ({
     };
 
     const handleReadMore = () => {
-        // toggleSingleBlog(blog);
         isUserBlogList && toggleProfileDetails();
         navigate(`/blogs/${blog.id}`, { state: { isUserBlogList } });
     };

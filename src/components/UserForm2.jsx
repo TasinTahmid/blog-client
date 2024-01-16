@@ -1,16 +1,14 @@
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setPageTypeLogin, setPageTypeRegister } from "../states/pageTypeSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema, loginSchema } from "../schemas/user.schema.js";
-import {
-    useCreateUserMutation,
-    useLoginUserMutation,
-} from "../apis/userApi.js";
+import { useCreateUserMutation, useLoginUserMutation } from "../apis/userApi.js";
 import { setLogin } from "../states/authSlice.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserForm = () => {
     const dispatch = useDispatch();
@@ -21,9 +19,7 @@ const UserForm = () => {
     const { pageType } = useSelector((state) => state.pageType);
 
     const { register, handleSubmit, control, formState } = useForm({
-        resolver: yupResolver(
-            pageType == "register" ? registerSchema : loginSchema
-        ),
+        resolver: yupResolver(pageType == "register" ? registerSchema : loginSchema),
     });
 
     const { errors } = formState;
@@ -34,7 +30,20 @@ const UserForm = () => {
 
         if (response.data) {
             dispatch(setLogin(response.data));
-            navigate("/");
+
+            toast.success("Registration successfull.", {
+                position: "bottom-right",
+                autoClose: 700,
+            });
+            setTimeout(() => {
+                navigate("/");
+            }, 1500);
+        }
+        if (response.error) {
+            toast.error(response.error.data.message, {
+                position: "bottom-right",
+                autoClose: 1500,
+            });
         }
     };
     const handleLogin = async (data) => {
@@ -43,7 +52,19 @@ const UserForm = () => {
 
         if (response.data) {
             dispatch(setLogin(response.data));
-            navigate("/");
+            toast.success("Login successfull.", {
+                position: "bottom-right",
+                autoClose: 700,
+            });
+            setTimeout(() => {
+                navigate("/");
+            }, 1500);
+        }
+        if (response.error) {
+            toast.error(response.error.data.message, {
+                position: "bottom-right",
+                autoClose: 1500,
+            });
         }
     };
 
@@ -78,9 +99,7 @@ const UserForm = () => {
                             {...register("username")}
                             className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
-                        <p className="text-red-600">
-                            {errors.username?.message}
-                        </p>
+                        <p className="text-red-600">{errors.username?.message}</p>
                     </div>
                 )}
                 <div className="mb-2 p-4">
@@ -127,9 +146,7 @@ const UserForm = () => {
                             {...register("confirmPassword")}
                             className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
                         />
-                        <p className="text-red-600">
-                            {errors.confirmPassword?.message}
-                        </p>
+                        <p className="text-red-600">{errors.confirmPassword?.message}</p>
                     </div>
                 )}
 
@@ -139,9 +156,7 @@ const UserForm = () => {
                         className="rounded-md  py-2 text-sm font-semibold leading-6 text-gray-900 hover:underline hover:underline-offset-2"
                         onClick={() => {
                             dispatch(
-                                pageType == "register"
-                                    ? setPageTypeLogin()
-                                    : setPageTypeRegister()
+                                pageType == "register" ? setPageTypeLogin() : setPageTypeRegister()
                             );
                         }}
                     >
@@ -159,6 +174,7 @@ const UserForm = () => {
                 </div>
             </form>
 
+            <ToastContainer />
             <DevTool control={control} />
         </div>
     );

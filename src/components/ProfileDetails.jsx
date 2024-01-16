@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProfileDetails = ({ toggleProfileSettings }) => {
     const user = useSelector((state) => state.auth.user);
+    const navigate = useNavigate();
 
     return (
         <div className="col-span-3 mt-6  rounded-md shadow-xl pt-8 w-full h-fit p-10 bg-white text-xl text-gray-600 overflow-auto">
@@ -26,7 +28,7 @@ const ProfileDetails = ({ toggleProfileSettings }) => {
                     strokeWidth={1.5}
                     stroke="currentColor"
                     className="w-6 h-6 mr-2 hover:cursor-pointer"
-                    onClick={toggleProfileSettings}
+                    onClick={() => navigate("/settings")}
                 >
                     <path
                         strokeLinecap="round"
