@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, NavLink, Outlet } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const ItemBar = () => {
     return (
@@ -7,7 +7,9 @@ const ItemBar = () => {
             <NavLink
                 to="update-password"
                 className={({ isActive }) =>
-                    isActive ? "underline underline-offset-2 font-semibold mr-16" : "mr-16"
+                    isActive
+                        ? "underline underline-offset-2 font-semibold mr-16"
+                        : "mr-16"
                 }
             >
                 Update Password
@@ -15,12 +17,13 @@ const ItemBar = () => {
             <NavLink
                 to="delete-account"
                 className={({ isActive }) =>
-                    isActive ? "underline underline-offset-2 font-semibold mr-16" : "mr-16"
+                    isActive
+                        ? "underline underline-offset-2 font-semibold mr-16"
+                        : "mr-16"
                 }
             >
                 Delete Account
             </NavLink>
-            <Outlet />
         </div>
     );
 };

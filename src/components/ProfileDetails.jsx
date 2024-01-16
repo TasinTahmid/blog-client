@@ -28,7 +28,7 @@ const ProfileDetails = ({ toggleProfileSettings }) => {
                     strokeWidth={1.5}
                     stroke="currentColor"
                     className="w-6 h-6 mr-2 hover:cursor-pointer"
-                    onClick={() => navigate("/settings")}
+                    onClick={() => navigate("/settings/update-password")}
                 >
                     <path
                         strokeLinecap="round"
