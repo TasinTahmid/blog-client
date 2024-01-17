@@ -1,6 +1,41 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import { useSelector, useDispatch } from "react-redux";
+import { useDeleteAccountMutation } from "../apis/userApi";
+import { useNavigate } from "react-router-dom";
+import { setLogout } from "../states/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PopupConfirmation = ({ togglePopup }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [deleteAccount] = useDeleteAccountMutation();
+
+    const { user, token } = useSelector((state) => state.auth);
+
+    const handleDeleteAccount = async (id, token) => {
+        const response = await deleteAccount({ id, token });
+
+        if (response.data) {
+            toast.success("Account deleted successfully.", {
+                position: "bottom-right",
+                autoClose: 700,
+            });
+
+            setTimeout(() => {
+                navigate("/");
+                dispatch(setLogout());
+            }, 1200);
+        }
+        if (response.error) {
+            toast.error(response.error.data.message, {
+                position: "bottom-right",
+                autoClose: 1500,
+            });
+        }
+    };
+
     return (
         <div
             id="popup-modal"
@@ -31,6 +66,10 @@ const PopupConfirmation = ({ togglePopup }) => {
                             <button
                                 data-modal-hide="popup-modal"
                                 type="button"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleDeleteAccount(user.id, token);
+                                }}
                                 className="text-white bg-red-600 hover:bg-red-800  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
                             >
                                 Yes, I'm sure
@@ -39,6 +78,7 @@ const PopupConfirmation = ({ togglePopup }) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

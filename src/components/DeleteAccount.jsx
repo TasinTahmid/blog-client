@@ -1,20 +1,25 @@
 import { useState } from "react";
 import PopupConfirmation from "./PopupConfirmation";
+import { useNavigate } from "react-router-dom";
 
 const DeleteAccount = () => {
+    const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
 
     const togglePopup = () => setShowPopup(!showPopup);
 
+    const backToProfile = () => {
+        navigate("/profile");
+    };
+
     return (
-        <div className="mx-auto mt-8 flex  w-2/3 h-2/3 bg-gray-50  shadow-xl">
+        <div className="mx-auto mt-8 flex flex-col justify-between  w-1/2 h-1/2 bg-gray-50  shadow-xl">
             <div className="mt-12 px-14  ">
                 <h2 className="py-4 text-red-600 font-semibold text-2xl border-b border-black-500">
                     Delete account
                 </h2>
                 <p className="py-4 text-sm mb-10">
-                    Once you delete your account, there is no going back. Please
-                    be certain.
+                    Once you delete your account, there is no going back. Please be certain.
                 </p>
                 <button
                     onClick={togglePopup}
@@ -24,6 +29,13 @@ const DeleteAccount = () => {
                 </button>
                 {showPopup && <PopupConfirmation togglePopup={togglePopup} />}
             </div>
+            <button
+                type="button"
+                className="mb-8 rounded-lg border border-gray-200 mx-14 w-fit rounded-md text-sm font-semibold px-4 py-3 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                onClick={backToProfile}
+            >
+                Back to profile
+            </button>
         </div>
     );
 };

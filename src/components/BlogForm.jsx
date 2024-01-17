@@ -35,32 +35,8 @@ const BlogForm = ({
 
     const { errors } = formState;
 
-    // const createBlog = async () => {
-    //     try {
-    //         const response = await axios.post(
-    //             "http://localhost:5000/api/v1/blogs",
-    //             {
-    //                 title,
-    //                 blogContent,
-    //             },
-    //             {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     authorization: `Bearer ${token}`,
-    //                 },
-    //             }
-    //         );
-    //         dispatch(addNewBlog(response.data));
-    //         dispatch(increaseBlogCount());
-    //         handleClick();
-    //     } catch (error) {
-    //         console.log("error...", error.response);
-    //     }
-    // };
     const handleCreate = async (body) => {
         const response = await createBlog({ body, token });
-        // dispatch(addNewBlog(blog));
-        // dispatch(increaseBlogCount());
         if (response.data) {
             toast.success("Blog created successfully.", {
                 position: "bottom-right",

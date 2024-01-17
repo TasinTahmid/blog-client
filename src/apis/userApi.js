@@ -38,6 +38,13 @@ export const userApi = createApi({
                 headers: { authorization: `Bearer ${token}` },
             }),
         }),
+        deleteAccount: builder.mutation({
+            query: ({ id, token }) => ({
+                url: `/${id}`,
+                method: "DELETE",
+                headers: { authorization: `Bearer ${token}` },
+            }),
+        }),
     }),
 });
 
@@ -46,4 +53,5 @@ export const {
     useCreateUserMutation,
     useLoginUserMutation,
     useUpdatePasswordMutation,
+    useDeleteAccountMutation,
 } = userApi;
