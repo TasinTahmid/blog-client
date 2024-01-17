@@ -3,7 +3,7 @@ import authReducer from "./authSlice";
 import pageTypeReducer from "./pageTypeSlice";
 import blogReducer from "./blogSlice";
 import storage from "redux-persist/lib/storage";
-import { api } from "../apis/api";
+import { blogApi } from "../apis/blogApi";
 import { userApi } from "../apis/userApi";
 import {
     persistReducer,
@@ -41,28 +41,18 @@ const createPersistedReducer = (persistConfig, reducer) => {
 const store = configureStore({
     reducer: {
         auth: createPersistedReducer(authPersistConfig, authReducer),
-        pageType: createPersistedReducer(
-            pageTypePersistConfig,
-            pageTypeReducer
-        ),
+        pageType: createPersistedReducer(pageTypePersistConfig, pageTypeReducer),
         blog: createPersistedReducer(blogPersistConfig, blogReducer),
-        [api.reducerPath]: api.reducer,
+        [blogApi.reducerPath]: blogApi.reducer,
         [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: [
-                    FLUSH,
-                    REHYDRATE,
-                    PAUSE,
-                    PERSIST,
-                    PURGE,
-                    REGISTER,
-                ],
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         })
-            .concat(api.middleware)
+            .concat(blogApi.middleware)
             .concat(userApi.middleware),
 });
 

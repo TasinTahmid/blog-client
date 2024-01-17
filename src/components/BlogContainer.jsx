@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import BlogCard from "./BlogCard";
 import CreateBlogInputButton from "./CreateBlogInputButton";
 import BlogForm from "./BlogForm";
-import SingleBlog from "./SingleBlog";
 import Paginate from "./Pagination";
 
 const BlogContainer = ({ isUserBlogList, toggleProfileDetails }) => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBlogs, setAllBlogCount } from "../states/blogSlice";
 import DotLoader from "react-spinners/DotLoader";
-import { useGetAllBlogsQuery } from "../apis/api";
+import { useGetAllBlogsQuery } from "../apis/blogApi";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -16,14 +16,11 @@ const Home = () => {
     });
 
     const [loading, setLoading] = useState(isLoading);
-    // console.log("this is rtk query data", data, isLoading);
 
     useEffect(() => {
-        console.log("after fetch.", data);
         if (data) {
             dispatch(setBlogs(data.blogList));
             dispatch(setAllBlogCount(data.count));
-            console.log("blog list upadated.", data);
         }
         if (!isLoading) {
             setTimeout(() => {

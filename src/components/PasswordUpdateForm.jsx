@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordUpdateSchema } from "../schemas/user.schema";

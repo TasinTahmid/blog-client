@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useSelector } from "react-redux";
-import { useCreateBlogMutation, useUpdateBlogMutation } from "../apis/api";
+import { useCreateBlogMutation, useUpdateBlogMutation } from "../apis/blogApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import blogSchema from "../schemas/blog.schema";
 import { ToastContainer, toast } from "react-toastify";
@@ -56,7 +56,6 @@ const BlogForm = ({
     };
 
     const handleUpdate = async (body) => {
-        console.log("before update", body);
         const response = await updateBlog({ id: blog.id, body, token });
         if (response.data) {
             toast.success("Blog updated successfully.", {
@@ -65,7 +64,7 @@ const BlogForm = ({
             });
 
             setTimeout(() => {
-                toggleEditBlog(title, blogContent);
+                toggleEditBlog(response.data.title, response.data.blogContent);
             }, 1200);
         }
         if (response.error) {
@@ -77,7 +76,6 @@ const BlogForm = ({
     };
 
     const onSubmit = async (data) => {
-        console.log(data);
         if (isCreateBlog) return await handleCreate(data);
         return await handleUpdate(data);
     };

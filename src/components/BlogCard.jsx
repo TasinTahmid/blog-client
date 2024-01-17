@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
 import { useNavigate } from "react-router-dom";
-import { useDeleteBlogMutation } from "../apis/api";
+import { useDeleteBlogMutation } from "../apis/blogApi";
 
 const BlogCard = ({ blog, toggleEditBlog, toggleProfileDetails, isUserBlogList }) => {
     const dispatch = useDispatch();

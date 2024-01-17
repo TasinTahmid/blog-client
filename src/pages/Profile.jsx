@@ -5,7 +5,7 @@ import DotLoader from "react-spinners/DotLoader";
 import ProfileDetails from "../components/ProfileDetails";
 import PasswordUpdateForm from "../components/PasswordUpdateForm";
 import { setUserBlogs, setUserBlogCount } from "../states/blogSlice";
-import { useGetUserBlogsQuery } from "../apis/api";
+import { useGetUserBlogsQuery } from "../apis/blogApi";
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -23,7 +23,6 @@ const Profile = () => {
     });
 
     const [loading, setLoading] = useState(isLoading);
-    console.log("this is rtk query data", data, isLoading);
 
     useEffect(() => {
         dispatch(setUserBlogs(data?.blogList));
@@ -34,27 +33,6 @@ const Profile = () => {
             }, 600);
         }
     }, [data, pageNumber, isLoading, dispatch]);
-
-    // useEffect(() => {
-    //     setLoading(true);
-    //     const fetchBlogs = async () => {
-    //         const response = await axios.get(
-    //             `http://localhost:5000/api/v1/users/${user.id}/blogs?page=${pageNumber}&size=${pageSize}`,
-    //             {
-    //                 headers: {
-    //                     Accept: "application/json",
-    //                 },
-    //             }
-    //         );
-    //         console.log("blogAndCount", response.data);
-    //         dispatch(setUserBlogs(response.data.blogList));
-    //         dispatch(setUserBlogCount(response.data.count));
-    //         setTimeout(() => {
-    //             setLoading(false);
-    //         }, 600);
-    //     };
-    //     user.id && fetchBlogs();
-    // }, []);
 
     const toggleProfileSettings = () => {
         setProfileSettings(!profileSettings);

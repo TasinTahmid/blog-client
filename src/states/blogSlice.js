@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { api } from "../apis/api";
+import { blogApi } from "../apis/blogApi";
 
 const initialState = {
     blogList: [],
@@ -56,12 +56,8 @@ export const blogSlice = createSlice({
             });
         },
         deleteBlogById: (state, action) => {
-            state.blogList = state.blogList.filter(
-                (blog) => action.payload != blog.id
-            );
-            state.userBlogList = state.userBlogList.filter(
-                (blog) => action.payload != blog.id
-            );
+            state.blogList = state.blogList.filter((blog) => action.payload != blog.id);
+            state.userBlogList = state.userBlogList.filter((blog) => action.payload != blog.id);
         },
     },
 });

@@ -1,34 +1,28 @@
 /* eslint-disable react/prop-types */
-import { useDeleteBlogMutation } from "../apis/api";
+import { useDeleteBlogMutation } from "../apis/blogApi";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteBlogById } from "../states/blogSlice";
-import { decreaseBlogCount } from "../states/blogSlice";
+import { useSelector } from "react-redux";
 import BlogForm from "./BlogForm";
 
 const SingleBlog = ({ blog, isUserBlogList }) => {
-    console.log("first blog", blog);
     const navigate = useNavigate();
     const [isEditOn, setIsEditOn] = useState(false);
     const { user, token } = useSelector((state) => state.auth);
     const [time, setTime] = useState(blog.createdAt);
     const [title, setTitle] = useState(blog.title);
     const [blogContent, setBlogContent] = useState(blog.blogContent);
-    console.log("Blog", blog);
 
     useEffect(() => {
-        console.log("in useEffect in single blog,", blog.title, blog.blogContent);
         if (blog.createdAt) setTime(blog.createdAt.split("T")[0]);
         if (blog.title) setTitle(blog.title);
         if (blog.createdAt) setBlogContent(blog.blogContent);
     }, [blog]);
 
-    const [deleteBlog, data] = useDeleteBlogMutation();
+    const [deleteBlog] = useDeleteBlogMutation();
 
     const handleDelete = () => {
         deleteBlog({ id: blog.id, token });
-        console.log("deleted Data", data);
         isUserBlogList ? navigate("/profile") : navigate("/");
     };
 
@@ -43,7 +37,6 @@ const SingleBlog = ({ blog, isUserBlogList }) => {
 
     return (
         <div className={`w-full${isEditOn ? "" : " h-full bg-white"}`}>
-            {console.log("confirm", isEditOn)}
             {isEditOn ? (
                 <BlogForm blog={blog} toggleEditBlog={toggleEditBlog} />
             ) : (
