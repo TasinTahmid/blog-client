@@ -117,14 +117,14 @@ const PasswordUpdateForm = ({ toggleProfileSettings }) => {
                 <div className="mt-6 flex items-center justify-between gap-x-6">
                     <button
                         type="button"
-                        className="rounded-md text-sm font-semibold px-4 py-2 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                        className="border border-gray-200 rounded-md text-sm font-semibold px-4 py-2 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
                         onClick={backToProfile}
                     >
-                        Back to profile
+                        {"< Back to profile"}
                     </button>
                     <button
                         type="submit"
-                        className=" rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
+                        className="mr-16 rounded-md bg-gray-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 active:bg-gray-600"
                     >
                         Change Password
                     </button>

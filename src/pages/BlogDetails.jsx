@@ -20,9 +20,9 @@ const BlogDetails = () => {
                 },
             });
 
+            console.log("in page", response.data);
             setBlog(response.data);
             setTime(response.data.createdAt.split("T")[0]);
-            console.log(response.data.createdAt.split("T")[0]);
         };
         fetchBlog();
     }, []);

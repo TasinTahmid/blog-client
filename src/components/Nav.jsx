@@ -53,9 +53,7 @@ const Nav = () => {
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
-                        isActive
-                            ? "underline underline-offset-2 font-semibold"
-                            : ""
+                        isActive ? "underline underline-offset-2 font-semibold" : ""
                     }
                 >
                     Home
@@ -66,9 +64,7 @@ const Nav = () => {
                             to="/profile"
                             state={{ id: user.id }}
                             className={({ isActive }) =>
-                                isActive
-                                    ? "underline underline-offset-2 font-semibold"
-                                    : ""
+                                isActive ? "underline underline-offset-2 font-semibold" : ""
                             }
                         >
                             Profile
@@ -119,6 +115,12 @@ const Nav = () => {
                                 className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
                             >
                                 {user.username}
+                            </NavLink>
+                            <NavLink
+                                to="/settings/update-password"
+                                className="block px-4 py-2 text-sm active:bg-gray-50 hover:bg-gray-100"
+                            >
+                                Profile settings
                             </NavLink>
 
                             <div

@@ -13,7 +13,7 @@ const DeleteAccount = () => {
     };
 
     return (
-        <div className="mx-auto mt-8 flex flex-col justify-between  w-1/2 h-1/2 bg-gray-50  shadow-xl">
+        <div className="mx-auto mt-8 flex flex-col justify-between  w-1/2 h-auto bg-gray-50  shadow-xl">
             <div className="mt-12 px-14  ">
                 <h2 className="py-4 text-red-600 font-semibold text-2xl border-b border-black-500">
                     Delete account
@@ -31,10 +31,10 @@ const DeleteAccount = () => {
             </div>
             <button
                 type="button"
-                className="mb-8 rounded-lg border border-gray-200 mx-14 w-fit rounded-md text-sm font-semibold px-4 py-3 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
+                className="my-16 rounded-lg border border-gray-200 mx-14 w-fit rounded-md text-sm font-semibold px-4 py-3 text-gray-900 hover:bg-gray-100 active:bg-gray-50"
                 onClick={backToProfile}
             >
-                Back to profile
+                {"< Back to profile"}
             </button>
         </div>
     );

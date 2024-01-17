@@ -36,8 +36,11 @@ const BlogCard = ({ blog, toggleEditBlog, toggleProfileDetails, isUserBlogList }
     return (
         <div className="bg-white rounded-sm shadow-xl deleteBlogById w-full py-10 px-14">
             <h2 className="text-5xl mb-8 font-semibold">{blog.title}</h2>
-            <div className="flex justify-between items-center">
-                <p className="my-6">{time}</p>
+            <div className="flex justify-between items-baseline">
+                <div>
+                    <h2 className="font-semibold text-xl  ">{blog.User.username}</h2>
+                    <p className="my-6">{time}</p>
+                </div>
                 {user?.id === blog.userId && (
                     <div>
                         <button

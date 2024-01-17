@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useDeleteBlogMutation } from "../apis/api";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +8,7 @@ import { decreaseBlogCount } from "../states/blogSlice";
 import BlogForm from "./BlogForm";
 
 const SingleBlog = ({ blog, isUserBlogList }) => {
+    console.log("first blog", blog);
     const navigate = useNavigate();
     const [isEditOn, setIsEditOn] = useState(false);
     const { user, token } = useSelector((state) => state.auth);
@@ -16,11 +18,7 @@ const SingleBlog = ({ blog, isUserBlogList }) => {
     console.log("Blog", blog);
 
     useEffect(() => {
-        console.log(
-            "in useEffect in single blog,",
-            blog.title,
-            blog.blogContent
-        );
+        console.log("in useEffect in single blog,", blog.title, blog.blogContent);
         if (blog.createdAt) setTime(blog.createdAt.split("T")[0]);
         if (blog.title) setTitle(blog.title);
         if (blog.createdAt) setBlogContent(blog.blogContent);
@@ -28,21 +26,6 @@ const SingleBlog = ({ blog, isUserBlogList }) => {
 
     const [deleteBlog, data] = useDeleteBlogMutation();
 
-    // const deleteBlog = async () => {
-    //     try {
-    //         const response = await axios.delete(`http://localhost:5000/api/v1/blogs/${blog.id}`, {
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 authorization: `Bearer ${token}`,
-    //             },
-    //         });
-    //         console.log(response.data);
-    //         dispatch(deleteBlogById(response.data.id));
-    //         toggleSingleBlog(null);
-    //     } catch (error) {
-    //         console.log("error...", error.response);
-    //     }
-    // };
     const handleDelete = () => {
         deleteBlog({ id: blog.id, token });
         console.log("deleted Data", data);
@@ -89,7 +72,10 @@ const SingleBlog = ({ blog, isUserBlogList }) => {
                     <h2 className="p-2 text-6xl mb-8 font-semibold">{title}</h2>
 
                     <div className="p-2 flex justify-between items-center">
-                        <p className="my-6">{time}</p>
+                        <div>
+                            <h2 className="font-semibold text-xl  ">{blog?.User?.username}</h2>
+                            <p className="my-6">{time}</p>
+                        </div>
                         {user.id === blog.userId && (
                             <div>
                                 <button
