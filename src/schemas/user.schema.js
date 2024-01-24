@@ -27,11 +27,11 @@ const loginSchema = Yup.object().shape({
 
 const passwordUpdateSchema = Yup.object().shape({
     oldPassword: Yup.string()
-        .required("Password is required")
+        .required("Old Password is required")
         .min(4, "Password must be at least 4 characters"),
 
     newPassword: Yup.string()
-        .required("Password is required")
+        .required("New Password is required")
         .min(4, "Password must be at least 4 characters"),
 
     confirmNewPassword: Yup.string()
