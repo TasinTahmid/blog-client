@@ -4,7 +4,12 @@ import { deleteBlogById, decreaseBlogCount } from "../states/blogSlice";
 import { useNavigate } from "react-router-dom";
 import { useDeleteBlogMutation } from "../apis/blogApi";
 
-const BlogCard = ({ blog, toggleEditBlog, toggleProfileDetails, isUserBlogList }) => {
+const BlogCard = ({
+    blog,
+    toggleEditBlog,
+    toggleProfileDetails,
+    isUserBlogList,
+}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -38,7 +43,9 @@ const BlogCard = ({ blog, toggleEditBlog, toggleProfileDetails, isUserBlogList }
             <h2 className="text-5xl mb-8 font-semibold">{blog.title}</h2>
             <div className="flex justify-between items-baseline">
                 <div>
-                    <h2 className="font-semibold text-xl  ">{blog.User.username}</h2>
+                    <h2 className="font-semibold text-xl  ">
+                        {blog.User?.username}
+                    </h2>
                     <p className="my-6">{time}</p>
                 </div>
                 {user?.id === blog.userId && (
