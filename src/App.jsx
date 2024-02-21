@@ -1,33 +1,33 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-import LoginPage from "./pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./app.css";
+import AuthPage from "./pages/Auth";
 import HomePage from "./pages/Home";
-import { useEffect } from "react";
+import Profile from "./pages/Profile";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import BlogDetails from "./pages/BlogDetails";
+import ProfileSettings from "./pages/ProfileSettings";
+import PasswordUpdateForm from "./components/PasswordUpdateForm";
+import DeleteAccount from "./components/DeleteAccount";
 
 function App() {
-    var token = useSelector((state) => state.auth.token);
-    useEffect(() => {
-        console.log("token first", token);
-    });
-    const isAuth = Boolean(useSelector((state) => state.auth.token));
-
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route
-                    path="/home"
-                    element={
-                        isAuth ? (
-                            <HomePage />
-                        ) : (
-                            <Navigate to="/" replace={false} />
-                        )
-                    }
-                />
-            </Routes>
-        </BrowserRouter>
+        <>
+            <BrowserRouter>
+                <Nav />
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/auth" element={<AuthPage />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/settings" element={<ProfileSettings />}>
+                        <Route path="update-password" element={<PasswordUpdateForm />} />
+                        <Route path="delete-account" element={<DeleteAccount />} />
+                    </Route>
+                    <Route path="/blogs/:id" element={<BlogDetails />} />
+                </Routes>
+                <Footer />
+            </BrowserRouter>
+        </>
     );
 }
 
