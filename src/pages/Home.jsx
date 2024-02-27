@@ -7,10 +7,10 @@ import { useGetAllBlogsQuery } from "../apis/blogApi";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const [pageSize, setPageSize] = useState(4);
+    const [pageSize] = useState(4);
     const pageNumber = useSelector((state) => state.blog.pageNumberForAllBlogs);
 
-    const { data, error, isLoading } = useGetAllBlogsQuery({
+    const { data, isLoading } = useGetAllBlogsQuery({
         pageNumber,
         pageSize,
     });

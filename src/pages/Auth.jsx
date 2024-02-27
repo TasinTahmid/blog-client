@@ -1,4 +1,4 @@
-import UserForm from "../components/UserForm2";
+import UserForm from "../components/UserForm";
 
 const Auth = () => {
     return (
