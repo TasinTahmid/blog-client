@@ -21,7 +21,7 @@ const PasswordUpdateForm = () => {
         resolver: yupResolver(passwordUpdateSchema),
     });
 
-    console.log("handle submit", formState);
+    console.log("handle submitsss", handleSubmit);
 
     const { errors } = formState;
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = [
     {
         id: "2f571e0a-a386-4cff-a341-b74867fa223e",

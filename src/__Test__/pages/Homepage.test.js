@@ -6,8 +6,9 @@ import { useGetAllBlogsQuery } from "../../apis/blogApi";
 import Homepage from "../../pages/Home";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-const mockStore = configureStore([]);
 import mockBlogList from "../mockDB";
+
+const mockStore = configureStore([]);
 
 jest.mock("../../apis/blogApi");
 
@@ -21,6 +22,7 @@ describe("Testing Homepage.", () => {
         useGetAllBlogsQuery.mockReturnValue({ data: mockBlogList, isLoading: false });
 
         const store = mockStore({ blog: { pageNumberForAllBlogs: 1 } });
+
         render(
             <Provider store={store}>
                 <Homepage />
@@ -29,7 +31,6 @@ describe("Testing Homepage.", () => {
 
         // Act
         const mockBlogContainer = screen.getByTestId("BlogContainer");
-        console.log("mockitemmm", mockBlogContainer);
 
         // Assert
         expect(mockBlogContainer).toBeInTheDocument();
