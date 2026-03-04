@@ -4,7 +4,7 @@ export const blogApi = createApi({
     reducerPath: "blogApi",
 
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:5000/api/v1",
+        baseUrl: `http://${import.meta.env.VITE_BACKEND_URL}/api/v1`,
     }),
     tagTypes: ["Blog", "User"],
 

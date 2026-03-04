@@ -16,7 +16,7 @@ const Form = () => {
 
     const login = async () => {
         const response = await axios.post(
-            "http://localhost:5000/api/v1/users/login",
+            `http://${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`,
             {
                 email,
                 password,
@@ -43,7 +43,7 @@ const Form = () => {
     const register = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:5000/api/v1/users/register",
+                `http://${import.meta.env.VITE_BACKEND_URL}/api/v1/users/register`,
                 {
                     username,
                     email,
